@@ -174,12 +174,18 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydmVzdClcbmxpYnJhcnkob3Blbk5MUClcbmxpYnJhcnkoTkxQKVxubGlicmFyeSh0d2l0dGVSKVxuYGBgIn0= -->
-<pre class="r"><code>library(rvest)
-library(openNLP)
-library(NLP)
-library(twitteR)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkcilcblxuYGBgIn0= -->
+<pre class="r"><code>library(readr)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog46S847ixcmVhZHLjpLzjuLJcblxuVGhlIGZvbGxvd2luZyBvYmplY3QgaXMgbWFza2VkIGZyb20g46S847ixcGFja2FnZTpydmVzdOOkvOO4sjpcblxuICAgIGd1ZXNzX2VuY29kaW5nXG4ifQ== -->
+<pre><code>
+Attaching package: 㤼㸱readr㤼㸲
+
+The following object is masked from 㤼㸱package:rvest㤼㸲:
+
+    guess_encoding</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>I got the idea for this from Molly White’s <a href="https://twitter.com/cyberprefixer">Cyberprefixer</a>, which scrapes news headlines and adds the prefix cyber- to random nouns. I stole bits of code from various places: <a href="http://rpubs.com/Ranthony__/web-scraping-activity-10" class="uri">http://rpubs.com/Ranthony__/web-scraping-activity-10</a> <a href="https://www.r-bloggers.com/tutorial-how-to-set-up-a-twitter-bot-using-r/" class="uri">https://www.r-bloggers.com/tutorial-how-to-set-up-a-twitter-bot-using-r/</a></p>
@@ -219,17 +225,17 @@ html_text()
 title&lt;-most_read[seq(2,20,2)]
 title</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIkxvdXZyZSBhdHRhY2s6IEZyZW5jaCBzb2xkaWVyIHNob290cyBtYWNoZXRlLXdpZWxkaW5nIG1hblwiICAgICAgICAgICAgICAgICAgIFxuIFsyXSBcIlVTIHNhbmN0aW9ucyBJcmFuIGFmdGVyIG1pc3NpbGUgdGVzdFwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFszXSBcIlJNVCBzdXNwZW5kcyBzdHJpa2VzIG9uIExvbmRvbiBVbmRlcmdyb3VuZFwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFs0XSBcIkJ1bmdsaW5nIGJ1cmdsYXIgY2F1Z2h0IGFmdGVyIGdldHRpbmcgc3R1Y2sgaW4gYSBiYXRocm9vbSB3aW5kb3dcIiAgICAgICAgICAgIFxuIFs1XSBcIkJvd2xpbmcgR3JlZW4gbWFzc2FjcmU6IFRydW1wIGFpZGUgY2l0ZXMgbm9uLWV4aXN0ZW50IGF0dGFja1wiICAgICAgICAgICAgICAgIFxuIFs2XSBcIlJveWFsIE1hcmluZSBNYXh3ZWxsIHBsZWFkcyBndWlsdHkgdG8gdGVycm9yIGNoYXJnZVwiICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFs3XSBcIkJCQyBwcmVzZW50ZXIgRW1pbHkgTWFpdGxpcyBpbiAndG9ydHVyZScgdHdlZXQgbWl4LXVwXCIgICAgICAgICAgICAgICAgICAgICAgIFxuIFs4XSBcIkJyZXhpdDogRnJlc2ggbGVnYWwgY2hhbGxlbmdlIGJsb2NrZWQgYnkgSGlnaCBDb3VydFwiICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFs5XSBcIldvbWFuIGlzIGNoYXJnZWQgd2l0aCBtdXJkZXIgYWZ0ZXIgYSBtYW4gd2FzIGF0dGFja2VkIHdpdGggYWNpZFwiICAgICAgICAgICAgIFxuWzEwXSBcIkljZWJlcmcgbGV0dHVjZXMgYW5kIGJyb2Njb2xpIHJhdGlvbmVkIGFzIHZlZ2V0YWJsZSBjcmlzaXMgaGl0cyBzdXBlcm1hcmtldHNcIlxuIn0= -->
-<pre><code> [1] &quot;Louvre attack: French soldier shoots machete-wielding man&quot;                   
- [2] &quot;US sanctions Iran after missile test&quot;                                        
- [3] &quot;RMT suspends strikes on London Underground&quot;                                  
- [4] &quot;Bungling burglar caught after getting stuck in a bathroom window&quot;            
- [5] &quot;Bowling Green massacre: Trump aide cites non-existent attack&quot;                
- [6] &quot;Royal Marine Maxwell pleads guilty to terror charge&quot;                         
- [7] &quot;BBC presenter Emily Maitlis in 'torture' tweet mix-up&quot;                       
- [8] &quot;Brexit: Fresh legal challenge blocked by High Court&quot;                         
- [9] &quot;Woman is charged with murder after a man was attacked with acid&quot;             
-[10] &quot;Iceberg lettuces and broccoli rationed as vegetable crisis hits supermarkets&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIlRydW1wIG9yZGVycyByZXZpZXcgdGhhdCBjb3VsZCByZWxheCBEb2RkLUZyYW5rIGJhbmsgcnVsZXNcIiAgICAgICAgICAgICAgICAgICAgICAgXG4gWzJdIFwiSSdsbCBkcmVzcyBsaWtlIGEgd29tYW4gd2hlbiB5b3UgYWN0IGxpa2UgYSBwcmVzaWRlbnQsIHBvbGljZSBvZmZpY2VyIHRlbGxzIFRydW1wXCJcbiBbM10gXCJPenp5IGV4cGVjdHMgdG8gJ3NoZWQgYSBmZXcgdGVhcnMnIGF0IEJsYWNrIFNhYmJhdGggZmFyZXdlbGwgc2hvd1wiICAgICAgICAgICAgICAgIFxuIFs0XSBcIkxvdXZyZSBhdHRhY2s6IEZyZW5jaCBzb2xkaWVyIHNob290cyBtYWNoZXRlLXdpZWxkaW5nIG1hblwiICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzVdIFwiRXgtU2hlZmZpZWxkIENpdHkgQ291bmNpbCBib3NzIFJvZ2VyIERvZGRzIGphaWxlZCBmb3Igc2V4IGFidXNlXCIgICAgICAgICAgICAgICAgICBcbiBbNl0gXCJCdW5nbGluZyBidXJnbGFyIGNhdWdodCBhZnRlciBnZXR0aW5nIHN0dWNrIGluIGEgYmF0aHJvb20gd2luZG93XCIgICAgICAgICAgICAgICAgIFxuIFs3XSBcIk1lcmtlbCB3ZWxjb21lcyBNYXkncyBhbWJpdGlvbiBmb3IgYSBzdHJvbmcgRXVyb3BlXCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzhdIFwiQm93bGluZyBHcmVlbiBtYXNzYWNyZTogVHJ1bXAgYWlkZSBjaXRlcyBub24tZXhpc3RlbnQgYXR0YWNrXCIgICAgICAgICAgICAgICAgICAgICBcbiBbOV0gXCJCQkMgcHJlc2VudGVyIEVtaWx5IE1haXRsaXMgaW4gJ3RvcnR1cmUnIHR3ZWV0IG1peC11cFwiICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuWzEwXSBcIlJveWFsIE1hcmluZSBNYXh3ZWxsIHBsZWFkcyBndWlsdHkgdG8gdGVycm9yIGNoYXJnZVwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4ifQ== -->
+<pre><code> [1] &quot;Trump orders review that could relax Dodd-Frank bank rules&quot;                       
+ [2] &quot;I'll dress like a woman when you act like a president, police officer tells Trump&quot;
+ [3] &quot;Ozzy expects to 'shed a few tears' at Black Sabbath farewell show&quot;                
+ [4] &quot;Louvre attack: French soldier shoots machete-wielding man&quot;                        
+ [5] &quot;Ex-Sheffield City Council boss Roger Dodds jailed for sex abuse&quot;                  
+ [6] &quot;Bungling burglar caught after getting stuck in a bathroom window&quot;                 
+ [7] &quot;Merkel welcomes May's ambition for a strong Europe&quot;                               
+ [8] &quot;Bowling Green massacre: Trump aide cites non-existent attack&quot;                     
+ [9] &quot;BBC presenter Emily Maitlis in 'torture' tweet mix-up&quot;                            
+[10] &quot;Royal Marine Maxwell pleads guilty to terror charge&quot;                              </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -244,10 +250,10 @@ taggedHeadline &lt;- tagPOS(strsplit(gsub(&quot;[^[:alnum:] ]&quot;,&quot;&quot;
 nounIndex &lt;- grep(&quot;NN&quot;,taggedHeadline)
 rle(diff(nounIndex))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUnVuIExlbmd0aCBFbmNvZGluZ1xuICBsZW5ndGhzOiBpbnQgMlxuICB2YWx1ZXMgOiBpbnQgMlxuIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiUnVuIExlbmd0aCBFbmNvZGluZ1xuICBsZW5ndGhzOiBpbnQgWzE6NV0gMSAxIDEgMiAxXG4gIHZhbHVlcyA6IGludCBbMTo1XSAxIDMgNiAxIDJcbiJ9 -->
 <pre><code>Run Length Encoding
-  lengths: int 2
-  values : int 2</code></pre>
+  lengths: int [1:5] 1 1 1 2 1
+  values : int [1:5] 1 3 6 1 2</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm91bnMgPC0gdG1wc3BsaXRbbm91bkluZGV4XVxubG93ZXJJZHggPC0gZ3JlcChcIiheW1s6bG93ZXI6XV0pXCIsbm91bnMpXG5ub3VucyA8LSBub3Vuc1tsb3dlcklkeF1cbm5vdW5JbmRleCA8LSBub3VuSW5kZXhbbG93ZXJJZHhdXG5uZXdOb3VucyA8LSBwYXN0ZShcIm5ldXJvXCIsbm91bnMsc2VwID0gXCJcIilcbnRtcCA8LSB0bXBzcGxpdFxuZm9yIChpIGluIDE6bGVuZ3RoKGxvd2VySWR4KSkge1xuICBpZiAoaSA9PSAxKSB7XG4gICAgdG1wW25vdW5JbmRleFtpXV0gPC0gbmV3Tm91bnNbaV1cbiAgfSBlbHNlIGlmIChub3VuSW5kZXhbaV0gIT0gKG5vdW5JbmRleFtpLTFdKzEpKSB7XG4gICAgdG1wW25vdW5JbmRleFtpXV0gPC0gbmV3Tm91bnNbaV1cbiAgfVxufVxuI3RtcFxucGFzdGUodG1wLGNvbGxhcHNlID0gXCIgXCIpXG5gYGAifQ== -->
 <pre class="r"><code>nouns &lt;- tmpsplit[nounIndex]
@@ -266,8 +272,8 @@ for (i in 1:length(lowerIdx)) {
 #tmp
 paste(tmp,collapse = &quot; &quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiUk1UIHN1c3BlbmRzIG5ldXJvc3RyaWtlcyBvbiBMb25kb24gVW5kZXJncm91bmRcIlxuIn0= -->
-<pre><code>[1] &quot;RMT suspends neurostrikes on London Underground&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiSSdsbCBuZXVyb2RyZXNzIGxpa2UgYSBuZXVyb3dvbWFuIHdoZW4geW91IGFjdCBsaWtlIGEgbmV1cm9wcmVzaWRlbnQsIHBvbGljZSBvZmZpY2VyIHRlbGxzIFRydW1wXCJcbiJ9 -->
+<pre><code>[1] &quot;I'll neurodress like a neurowoman when you act like a neuropresident, police officer tells Trump&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -304,12 +310,12 @@ tweet_text &lt;- paste(tmp,collapse = &quot; &quot;)
   # send tweet
   tweet(tweet_text)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTmV1cm9wcmVmaXhlcjogQnVuZ2xpbmcgbmV1cm9idXJnbGFyIGNhdWdodCBhZnRlciBnZXR0aW5nIHN0dWNrIGluIGEgbmV1cm9iYXRocm9vbSB3aW5kb3dcIlxuIn0= -->
-<pre><code>[1] &quot;Neuroprefixer: Bungling neuroburglar caught after getting stuck in a neurobathroom window&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTmV1cm9wcmVmaXhlcjogSSdsbCBuZXVyb2RyZXNzIGxpa2UgYSBuZXVyb3dvbWFuIHdoZW4geW91IGFjdCBsaWtlIGEgbmV1cm9wcmVzaWRlbnQsIHBvbGljZSBvZmZpY2VyIHRlbGxzIFRydW1wXCJcbiJ9 -->
+<pre><code>[1] &quot;Neuroprefixer: I'll neurodress like a neurowoman when you act like a neuropresident, police officer tells Trump&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk5ldXJvcHJlZml4ZXIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciBsb2FkUGFja2FnZXN9DQpsaWJyYXJ5KHJ2ZXN0KQ0KbGlicmFyeShvcGVuTkxQKQ0KbGlicmFyeShOTFApDQpsaWJyYXJ5KHR3aXR0ZVIpDQpgYGANCg0KSSBnb3QgdGhlIGlkZWEgZm9yIHRoaXMgZnJvbSBNb2xseSBXaGl0ZSdzIFtDeWJlcnByZWZpeGVyXShodHRwczovL3R3aXR0ZXIuY29tL2N5YmVycHJlZml4ZXIpLCB3aGljaCBzY3JhcGVzIG5ld3MgaGVhZGxpbmVzIGFuZCBhZGRzIHRoZSBwcmVmaXggY3liZXItIHRvIHJhbmRvbSBub3Vucy4gSSBzdG9sZSBiaXRzIG9mIGNvZGUgZnJvbSB2YXJpb3VzIHBsYWNlczogDQpodHRwOi8vcnB1YnMuY29tL1JhbnRob255X18vd2ViLXNjcmFwaW5nLWFjdGl2aXR5LTEwDQpodHRwczovL3d3dy5yLWJsb2dnZXJzLmNvbS90dXRvcmlhbC1ob3ctdG8tc2V0LXVwLWEtdHdpdHRlci1ib3QtdXNpbmctci8NCg0KRmlyc3QgSSBkZWZpbmUgYSBjdXN0b20gZnVuY3Rpb24gdG8gdGFnIHRoZSBwYXJ0cyBvZiBzcGVlY2ggKGkuZS4gd29yayBvdXQgd2hpY2ggd29yZHMgYXJlIG5vdW5zKS4gKG5pY2tlZCBmcm9tIGh0dHA6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzU3NzI3MjAvdGFnZ2luZy1wYXJ0LW9mLXNwZWVjaC1mb3ItYS1wYXJ0aWN1bGFyLXdvcmQtaW4tcikNCg0KYGBge3IgdGFnUGFydHNPZlNwZWVjaH0NCnRhZ1BPUyA8LSAgZnVuY3Rpb24oeCwgLi4uKSB7DQpzIDwtIGFzLlN0cmluZyh4KQ0Kd29yZF90b2tlbl9hbm5vdGF0b3IgPC0gTWF4ZW50X1dvcmRfVG9rZW5fQW5ub3RhdG9yKCkNCmEyIDwtIEFubm90YXRpb24oMUwsICJzZW50ZW5jZSIsIDFMLCBuY2hhcihzKSkNCmEyIDwtIGFubm90YXRlKHMsIHdvcmRfdG9rZW5fYW5ub3RhdG9yLCBhMikNCmEzIDwtIGFubm90YXRlKHMsIE1heGVudF9QT1NfVGFnX0Fubm90YXRvcigpLCBhMikNCmEzdyA8LSBhM1thMyR0eXBlID09ICJ3b3JkIl0NClBPU3RhZ3MgPC0gdW5saXN0KGxhcHBseShhM3ckZmVhdHVyZXMsIGBbW2AsICJQT1MiKSkNCiNQT1N0YWdnZWQgPC0gcGFzdGUoc3ByaW50ZigiJXMvJXMiLCBzW2Ezd10sIFBPU3RhZ3MpLCBjb2xsYXBzZSA9ICIgIikNCiNsaXN0KFBPU3RhZ2dlZCA9IFBPU3RhZ2dlZCwgUE9TdGFncyA9IFBPU3RhZ3MpDQpQT1N0YWdzfQ0KYGBgDQoNCk5leHQgd2UgZG8gdGhlIGFjdHVhbCBzY3JhcGluZy4gSGVyZSBJJ20ganVzdCB0YWtpbmcgdGhlIEJCQydzIG1vc3QgcmVhZCBoZWFkbGluZXMuDQoNCmBgYHtyIHNldFVSTHN9DQojdXJsIHRvIHRvcCAxMCBtb3N0IHJlYWQgcGFnZSANCmJiY19tb3N0X3JlYWQ8LSAiaHR0cDovL3d3dy5iYmMuY29tL25ld3MvcG9wdWxhci9yZWFkIg0KDQojYmFzZSB1cmwgZm9yIGJiYyB3ZWJzaXRlDQojd2UnbGwgbmVlZCB0aGlzIGxhdGVyIHRvIGNvbXBsZXRlIG91ciBsaW5rcw0KYmJjX2Jhc2VfdXJsPC0iaHR0cDovL3d3dy5iYmMuY29tIg0KDQojc2NyYXBlIHRoZSByYW5raW5nIGFuZCBhcnRpY2xlIHRpdGxlcyBhcyBhIHNpbmdsZSBsaXN0DQptb3N0X3JlYWQ8LWJiY19tb3N0X3JlYWQgJT4lIA0KcmVhZF9odG1sKCkgJT4lIA0KaHRtbF9ub2RlcygiLm1vc3QtcG9wdWxhci1wYWdlLWxpc3QtaXRlbSBzcGFuIikgJT4lIA0KaHRtbF90ZXh0KCkNCg0KDQojZXh0cmFjdCB0aGUgZXZlbiBudW1iZXJlZCBlbGVtZW50cyBpbiB0aGUgbGlzdCB3aGljaCBhcmUgYWxsIGFydGljbGUgdGl0bGVzIA0KdGl0bGU8LW1vc3RfcmVhZFtzZXEoMiwyMCwyKV0NCnRpdGxlDQpgYGANCg0KTm93IHRoZSBmdW4gcGFydC4gV2Ugc2VsZWN0IGEgcmFuZG9tIGhlYWRsaW5lLCB0YWcgdGhlIHBhcnRzIG9mIHNwZWVjaCwgcGljayBvdXQgbm91bnMgdGhhdCBzdGFydCB3aXRoIGxvd2VyY2FzZSBsZXR0ZXJzLCBwcmVmaXggdGhlbSB3aXRoIG5ldXJvLSwgdGhlbiBjb21iaW5lIHRoZW0gYmFjayBpbnRvIGEgc2VudGVuY2UuDQoNCmBgYHtyIGNyZWF0ZU5ld0hlYWRsaW5lIH0NCnNlbGVjdGVkSGVhZGxpbmUgPC0gc2FtcGxlKDE6MTAsMSkNCm9sZEhlYWRsaW5lIDwtIHRpdGxlW3NlbGVjdGVkSGVhZGxpbmVdDQp0bXBzcGxpdCA8LSB1bmxpc3Qoc3Ryc3BsaXQob2xkSGVhZGxpbmUsIiAiKSkNCnRhZ2dlZEhlYWRsaW5lIDwtIHRhZ1BPUyhzdHJzcGxpdChnc3ViKCJbXls6YWxudW06XSBdIiwiIixvbGRIZWFkbGluZSksIiAiKVtbMV1dKQ0Kbm91bkluZGV4IDwtIGdyZXAoIk5OIix0YWdnZWRIZWFkbGluZSkNCnJsZShkaWZmKG5vdW5JbmRleCkpDQpub3VucyA8LSB0bXBzcGxpdFtub3VuSW5kZXhdDQpsb3dlcklkeCA8LSBncmVwKCIoXltbOmxvd2VyOl1dKSIsbm91bnMpDQpub3VucyA8LSBub3Vuc1tsb3dlcklkeF0NCm5vdW5JbmRleCA8LSBub3VuSW5kZXhbbG93ZXJJZHhdDQpuZXdOb3VucyA8LSBwYXN0ZSgibmV1cm8iLG5vdW5zLHNlcCA9ICIiKQ0KDQp0bXAgPC0gdG1wc3BsaXQNCmZvciAoaSBpbiAxOmxlbmd0aChsb3dlcklkeCkpIHsNCiAgaWYgKGkgPT0gMSkgew0KICAgIHRtcFtub3VuSW5kZXhbaV1dIDwtIG5ld05vdW5zW2ldDQogIH0gZWxzZSBpZiAobm91bkluZGV4W2ldICE9IChub3VuSW5kZXhbaS0xXSsxKSkgew0KICAgIHRtcFtub3VuSW5kZXhbaV1dIDwtIG5ld05vdW5zW2ldDQogIH0NCn0NCiN0bXANCnBhc3RlKHRtcCxjb2xsYXBzZSA9ICIgIikNCmBgYA0KDQpOb3cgdG8gZG8gdGhlIHR3aXR0ZXJpbmcuLi4NCg0KYGBge3J9DQogIyBzZXQgdXAgdHdpdHRlciBhcGkNCmFwaV9rZXlzIDwtIHJlYWRfY3N2KCJ+L0dpdEh1Yi9uZXVyb3ByZWZpeGVyL3R3aXR0ZXJfYWNjZXNzLmNzdiIpDQpzZXR1cF90d2l0dGVyX29hdXRoKGNvbnN1bWVyX2tleSA9IGFwaV9rZXlzJGNvbnN1bWVyX2tleSwNCiAgICAgICAgICAgICAgICAgICAgICBjb25zdW1lcl9zZWNyZXQgPSBhcGlfa2V5cyRjb25zdW1lcl9zZWNyZXQsDQogICAgICAgICAgICAgICAgICAgICAgYWNjZXNzX3Rva2VuID0gYXBpX2tleXMkYWNjZXNzX3Rva2VuLA0KICAgICAgICAgICAgICAgICAgICAgIGFjY2Vzc19zZWNyZXQgPSBhcGlfa2V5cyRhY2Nlc3Nfc2VjcmV0KQ0KdGltZSA8LSBTeXMudGltZSgpDQogIA0KIyBjcmVhdGUgdHdlZXQNCnR3ZWV0X3RleHQgPC0gcGFzdGUodG1wLGNvbGxhcHNlID0gIiAiKQ0KICAjIHNlbmQgdHdlZXQNCiAgdHdlZXQodHdlZXRfdGV4dCkNCmBgYA0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk5ldXJvcHJlZml4ZXIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciBsb2FkUGFja2FnZXN9DQpsaWJyYXJ5KHJ2ZXN0KQ0KbGlicmFyeShvcGVuTkxQKQ0KbGlicmFyeShOTFApDQpsaWJyYXJ5KHR3aXR0ZVIpDQpsaWJyYXJ5KHJlYWRyKQ0KYGBgDQoNCkkgZ290IHRoZSBpZGVhIGZvciB0aGlzIGZyb20gTW9sbHkgV2hpdGUncyBbQ3liZXJwcmVmaXhlcl0oaHR0cHM6Ly90d2l0dGVyLmNvbS9jeWJlcnByZWZpeGVyKSwgd2hpY2ggc2NyYXBlcyBuZXdzIGhlYWRsaW5lcyBhbmQgYWRkcyB0aGUgcHJlZml4IGN5YmVyLSB0byByYW5kb20gbm91bnMuIEkgc3RvbGUgYml0cyBvZiBjb2RlIGZyb20gdmFyaW91cyBwbGFjZXM6IA0KaHR0cDovL3JwdWJzLmNvbS9SYW50aG9ueV9fL3dlYi1zY3JhcGluZy1hY3Rpdml0eS0xMA0KaHR0cHM6Ly93d3cuci1ibG9nZ2Vycy5jb20vdHV0b3JpYWwtaG93LXRvLXNldC11cC1hLXR3aXR0ZXItYm90LXVzaW5nLXIvDQoNCkZpcnN0IEkgZGVmaW5lIGEgY3VzdG9tIGZ1bmN0aW9uIHRvIHRhZyB0aGUgcGFydHMgb2Ygc3BlZWNoIChpLmUuIHdvcmsgb3V0IHdoaWNoIHdvcmRzIGFyZSBub3VucykuIChuaWNrZWQgZnJvbSBodHRwOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzM1NzcyNzIwL3RhZ2dpbmctcGFydC1vZi1zcGVlY2gtZm9yLWEtcGFydGljdWxhci13b3JkLWluLXIpDQoNCmBgYHtyIHRhZ1BhcnRzT2ZTcGVlY2h9DQp0YWdQT1MgPC0gIGZ1bmN0aW9uKHgsIC4uLikgew0KcyA8LSBhcy5TdHJpbmcoeCkNCndvcmRfdG9rZW5fYW5ub3RhdG9yIDwtIE1heGVudF9Xb3JkX1Rva2VuX0Fubm90YXRvcigpDQphMiA8LSBBbm5vdGF0aW9uKDFMLCAic2VudGVuY2UiLCAxTCwgbmNoYXIocykpDQphMiA8LSBhbm5vdGF0ZShzLCB3b3JkX3Rva2VuX2Fubm90YXRvciwgYTIpDQphMyA8LSBhbm5vdGF0ZShzLCBNYXhlbnRfUE9TX1RhZ19Bbm5vdGF0b3IoKSwgYTIpDQphM3cgPC0gYTNbYTMkdHlwZSA9PSAid29yZCJdDQpQT1N0YWdzIDwtIHVubGlzdChsYXBwbHkoYTN3JGZlYXR1cmVzLCBgW1tgLCAiUE9TIikpDQojUE9TdGFnZ2VkIDwtIHBhc3RlKHNwcmludGYoIiVzLyVzIiwgc1thM3ddLCBQT1N0YWdzKSwgY29sbGFwc2UgPSAiICIpDQojbGlzdChQT1N0YWdnZWQgPSBQT1N0YWdnZWQsIFBPU3RhZ3MgPSBQT1N0YWdzKQ0KUE9TdGFnc30NCmBgYA0KDQpOZXh0IHdlIGRvIHRoZSBhY3R1YWwgc2NyYXBpbmcuIEhlcmUgSSdtIGp1c3QgdGFraW5nIHRoZSBCQkMncyBtb3N0IHJlYWQgaGVhZGxpbmVzLg0KDQpgYGB7ciBzZXRVUkxzfQ0KI3VybCB0byB0b3AgMTAgbW9zdCByZWFkIHBhZ2UgDQpiYmNfbW9zdF9yZWFkPC0gImh0dHA6Ly93d3cuYmJjLmNvbS9uZXdzL3BvcHVsYXIvcmVhZCINCg0KI2Jhc2UgdXJsIGZvciBiYmMgd2Vic2l0ZQ0KI3dlJ2xsIG5lZWQgdGhpcyBsYXRlciB0byBjb21wbGV0ZSBvdXIgbGlua3MNCmJiY19iYXNlX3VybDwtImh0dHA6Ly93d3cuYmJjLmNvbSINCg0KI3NjcmFwZSB0aGUgcmFua2luZyBhbmQgYXJ0aWNsZSB0aXRsZXMgYXMgYSBzaW5nbGUgbGlzdA0KbW9zdF9yZWFkPC1iYmNfbW9zdF9yZWFkICU+JSANCnJlYWRfaHRtbCgpICU+JSANCmh0bWxfbm9kZXMoIi5tb3N0LXBvcHVsYXItcGFnZS1saXN0LWl0ZW0gc3BhbiIpICU+JSANCmh0bWxfdGV4dCgpDQoNCg0KI2V4dHJhY3QgdGhlIGV2ZW4gbnVtYmVyZWQgZWxlbWVudHMgaW4gdGhlIGxpc3Qgd2hpY2ggYXJlIGFsbCBhcnRpY2xlIHRpdGxlcyANCnRpdGxlPC1tb3N0X3JlYWRbc2VxKDIsMjAsMildDQp0aXRsZQ0KYGBgDQoNCk5vdyB0aGUgZnVuIHBhcnQuIFdlIHNlbGVjdCBhIHJhbmRvbSBoZWFkbGluZSwgdGFnIHRoZSBwYXJ0cyBvZiBzcGVlY2gsIHBpY2sgb3V0IG5vdW5zIHRoYXQgc3RhcnQgd2l0aCBsb3dlcmNhc2UgbGV0dGVycywgcHJlZml4IHRoZW0gd2l0aCBuZXVyby0sIHRoZW4gY29tYmluZSB0aGVtIGJhY2sgaW50byBhIHNlbnRlbmNlLg0KDQpgYGB7ciBjcmVhdGVOZXdIZWFkbGluZSB9DQpzZWxlY3RlZEhlYWRsaW5lIDwtIHNhbXBsZSgxOjEwLDEpDQpvbGRIZWFkbGluZSA8LSB0aXRsZVtzZWxlY3RlZEhlYWRsaW5lXQ0KdG1wc3BsaXQgPC0gdW5saXN0KHN0cnNwbGl0KG9sZEhlYWRsaW5lLCIgIikpDQp0YWdnZWRIZWFkbGluZSA8LSB0YWdQT1Moc3Ryc3BsaXQoZ3N1YigiW15bOmFsbnVtOl0gXSIsIiIsb2xkSGVhZGxpbmUpLCIgIilbWzFdXSkNCm5vdW5JbmRleCA8LSBncmVwKCJOTiIsdGFnZ2VkSGVhZGxpbmUpDQpybGUoZGlmZihub3VuSW5kZXgpKQ0Kbm91bnMgPC0gdG1wc3BsaXRbbm91bkluZGV4XQ0KbG93ZXJJZHggPC0gZ3JlcCgiKF5bWzpsb3dlcjpdXSkiLG5vdW5zKQ0Kbm91bnMgPC0gbm91bnNbbG93ZXJJZHhdDQpub3VuSW5kZXggPC0gbm91bkluZGV4W2xvd2VySWR4XQ0KbmV3Tm91bnMgPC0gcGFzdGUoIm5ldXJvIixub3VucyxzZXAgPSAiIikNCg0KdG1wIDwtIHRtcHNwbGl0DQpmb3IgKGkgaW4gMTpsZW5ndGgobG93ZXJJZHgpKSB7DQogIGlmIChpID09IDEpIHsNCiAgICB0bXBbbm91bkluZGV4W2ldXSA8LSBuZXdOb3Vuc1tpXQ0KICB9IGVsc2UgaWYgKG5vdW5JbmRleFtpXSAhPSAobm91bkluZGV4W2ktMV0rMSkpIHsNCiAgICB0bXBbbm91bkluZGV4W2ldXSA8LSBuZXdOb3Vuc1tpXQ0KICB9DQp9DQojdG1wDQpwYXN0ZSh0bXAsY29sbGFwc2UgPSAiICIpDQpgYGANCg0KTm93IHRvIGRvIHRoZSB0d2l0dGVyaW5nLi4uDQoNCmBgYHtyfQ0KICMgc2V0IHVwIHR3aXR0ZXIgYXBpDQphcGlfa2V5cyA8LSByZWFkX2Nzdigifi9HaXRIdWIvbmV1cm9wcmVmaXhlci90d2l0dGVyX2FjY2Vzcy5jc3YiKQ0Kc2V0dXBfdHdpdHRlcl9vYXV0aChjb25zdW1lcl9rZXkgPSBhcGlfa2V5cyRjb25zdW1lcl9rZXksDQogICAgICAgICAgICAgICAgICAgICAgY29uc3VtZXJfc2VjcmV0ID0gYXBpX2tleXMkY29uc3VtZXJfc2VjcmV0LA0KICAgICAgICAgICAgICAgICAgICAgIGFjY2Vzc190b2tlbiA9IGFwaV9rZXlzJGFjY2Vzc190b2tlbiwNCiAgICAgICAgICAgICAgICAgICAgICBhY2Nlc3Nfc2VjcmV0ID0gYXBpX2tleXMkYWNjZXNzX3NlY3JldCkNCnRpbWUgPC0gU3lzLnRpbWUoKQ0KICANCiMgY3JlYXRlIHR3ZWV0DQp0d2VldF90ZXh0IDwtIHBhc3RlKHRtcCxjb2xsYXBzZSA9ICIgIikNCiAgIyBzZW5kIHR3ZWV0DQogIHR3ZWV0KHR3ZWV0X3RleHQpDQpgYGANCg==</div>
 
 
 

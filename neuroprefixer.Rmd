@@ -8,6 +8,7 @@ library(rvest)
 library(openNLP)
 library(NLP)
 library(twitteR)
+library(readr)
 ```
 
 I got the idea for this from Molly White's [Cyberprefixer](https://twitter.com/cyberprefixer), which scrapes news headlines and adds the prefix cyber- to random nouns. I stole bits of code from various places: 
