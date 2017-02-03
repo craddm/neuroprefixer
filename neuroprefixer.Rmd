@@ -1,12 +1,36 @@
 ---
-title: "R Notebook"
+title: "Neuroprefixer"
 output: html_notebook
 ---
 
 ```{r loadPackages}
 library(rvest)
 library(openNLP)
+library(NLP)
+library(twitteR)
 ```
+
+I got the idea for this from Molly White's [Cyberprefixer](https://twitter.com/cyberprefixer), which scrapes news headlines and adds the prefix cyber- to random nouns. I stole bits of code from various places: 
+http://stackoverflow.com/questions/35772720/tagging-part-of-speech-for-a-particular-word-in-r
+http://rpubs.com/Ranthony__/web-scraping-activity-10
+
+First I define a custom function to tag the parts of speech (i.e. work out which words are nouns)
+
+```{r tagPartsOfSpeech}
+tagPOS <-  function(x, ...) {
+s <- as.String(x)
+word_token_annotator <- Maxent_Word_Token_Annotator()
+a2 <- Annotation(1L, "sentence", 1L, nchar(s))
+a2 <- annotate(s, word_token_annotator, a2)
+a3 <- annotate(s, Maxent_POS_Tag_Annotator(), a2)
+a3w <- a3[a3$type == "word"]
+POStags <- unlist(lapply(a3w$features, `[[`, "POS"))
+#POStagged <- paste(sprintf("%s/%s", s[a3w], POStags), collapse = " ")
+#list(POStagged = POStagged, POStags = POStags)
+POStags}
+```
+
+Next we do the actual scraping. Here I'm just taking the BBC's most read headlines.
 
 ```{r setURLs}
 #url to top 10 most read page 
@@ -15,9 +39,7 @@ bbc_most_read<- "http://www.bbc.com/news/popular/read"
 #base url for bbc website
 #we'll need this later to complete our links
 bbc_base_url<-"http://www.bbc.com"
-```
 
-```{r}
 #scrape the ranking and article titles as a single list
 most_read<-bbc_most_read %>% 
 read_html() %>% 
@@ -30,6 +52,8 @@ read_html() %>%
 html_nodes(".most-popular-page-list-item a") %>% 
 html_attr("href")
 ```
+
+Next we combine everything into a nice data frame. Most of this is actually unnecessary so I'll scrap it at some point.
 
 ```{r}
 #complete the links by pasting the base url to the 
@@ -47,22 +71,20 @@ title<-most_read[seq(2,20,2)]
 #summarize our results in a data.frame
 data.frame(rank,title,links)
 ```
-```{r}
+
+Now the fun part. We select a random headline, tag the parts of speech, pick out nouns that start with lowercase letters, prefix them with neuro-, then combine them back into a sentence.
+
+```{r }
 selectedHeadline <- sample(1:10,1)
 oldHeadline <- title[selectedHeadline]
 tmpsplit <- unlist(strsplit(oldHeadline," "))
-oldHeadline
-taggedHeadline <- tagPOS(oldHeadline)
-taggedHeadline
+taggedHeadline <- tagPOS(strsplit(gsub("[^[:alnum:] ]","",oldHeadline)," ")[[1]])
 nounIndex <- grep("NN",taggedHeadline)
-nounIndex
 nouns <- tmpsplit[nounIndex]
 lowerIdx <- grep("(^[[:lower:]])",nouns)
 nouns <- nouns[lowerIdx]
 nounIndex <- nounIndex[lowerIdx]
-#nounIndex[grep("(^[[:lower:]])",nouns)]
 newNouns <- paste("neuro",nouns,sep = "")
-#newNouns[lowerIdx]
 
 tmp <- tmpsplit
 for (i in 1:length(lowerIdx)) {
@@ -70,20 +92,20 @@ for (i in 1:length(lowerIdx)) {
 }
 #tmp
 paste(tmp,collapse = " ")
-
-
 ```
 
+Now to do the twittering...
 ```{r}
-tagPOS <-  function(x, ...) {
-s <- as.String(x)
-word_token_annotator <- Maxent_Word_Token_Annotator()
-a2 <- Annotation(1L, "sentence", 1L, nchar(s))
-a2 <- annotate(s, word_token_annotator, a2)
-a3 <- annotate(s, Maxent_POS_Tag_Annotator(), a2)
-a3w <- a3[a3$type == "word"]
-POStags <- unlist(lapply(a3w$features, `[[`, "POS"))
-#POStagged <- paste(sprintf("%s/%s", s[a3w], POStags), collapse = " ")
-#list(POStagged = POStagged, POStags = POStags)
-POStags}
+ # set up twitter api
+api_keys <- twitter_access <- read_csv("~/GitHub/neuroprefixer/twitter_access.csv")
+setup_twitter_oauth(consumer_key = api_keys$consumer_key,
+                      consumer_secret = api_keys$consumer_secret,
+                      access_token = api_keys$access_token,
+                      access_secret = api_keys$access_secret)
+time <- Sys.time()
+  
+# create tweet
+tweet_text <- paste(tmp,collapse = " ")
+  # send tweet
+  tweet(tweet_text)
 ```
