@@ -1,4 +1,4 @@
-# neuroprefixer
+# Neuroprefixer
 Neuroprefixer Twitter bot 
 
-A very sill bot, idea stolen from https://github.com/molly/CyberPrefixer/
+A very silly bot, idea stolen from https://github.com/molly/CyberPrefixer/
