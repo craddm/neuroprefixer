@@ -185,8 +185,8 @@ $(document).ready(function () {
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>I got the idea for this from Molly White’s <a href="https://twitter.com/cyberprefixer">Cyberprefixer</a>, which scrapes news headlines and adds the prefix cyber- to random nouns. I stole bits of code from various places: <a href="http://stackoverflow.com/questions/35772720/tagging-part-of-speech-for-a-particular-word-in-r" class="uri">http://stackoverflow.com/questions/35772720/tagging-part-of-speech-for-a-particular-word-in-r</a> <a href="http://rpubs.com/Ranthony__/web-scraping-activity-10" class="uri">http://rpubs.com/Ranthony__/web-scraping-activity-10</a></p>
-<p>First I define a custom function to tag the parts of speech (i.e. work out which words are nouns)</p>
+<p>I got the idea for this from Molly White’s <a href="https://twitter.com/cyberprefixer">Cyberprefixer</a>, which scrapes news headlines and adds the prefix cyber- to random nouns. I stole bits of code from various places: <a href="http://rpubs.com/Ranthony__/web-scraping-activity-10" class="uri">http://rpubs.com/Ranthony__/web-scraping-activity-10</a> <a href="https://www.r-bloggers.com/tutorial-how-to-set-up-a-twitter-bot-using-r/" class="uri">https://www.r-bloggers.com/tutorial-how-to-set-up-a-twitter-bot-using-r/</a></p>
+<p>First I define a custom function to tag the parts of speech (i.e. work out which words are nouns). (nicked from <a href="http://stackoverflow.com/questions/35772720/tagging-part-of-speech-for-a-particular-word-in-r" class="uri">http://stackoverflow.com/questions/35772720/tagging-part-of-speech-for-a-particular-word-in-r</a>)</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFnUE9TIDwtICBmdW5jdGlvbih4LCAuLi4pIHtcbnMgPC0gYXMuU3RyaW5nKHgpXG53b3JkX3Rva2VuX2Fubm90YXRvciA8LSBNYXhlbnRfV29yZF9Ub2tlbl9Bbm5vdGF0b3IoKVxuYTIgPC0gQW5ub3RhdGlvbigxTCwgXCJzZW50ZW5jZVwiLCAxTCwgbmNoYXIocykpXG5hMiA8LSBhbm5vdGF0ZShzLCB3b3JkX3Rva2VuX2Fubm90YXRvciwgYTIpXG5hMyA8LSBhbm5vdGF0ZShzLCBNYXhlbnRfUE9TX1RhZ19Bbm5vdGF0b3IoKSwgYTIpXG5hM3cgPC0gYTNbYTMkdHlwZSA9PSBcIndvcmRcIl1cblBPU3RhZ3MgPC0gdW5saXN0KGxhcHBseShhM3ckZmVhdHVyZXMsIGBbW2AsIFwiUE9TXCIpKVxuI1BPU3RhZ2dlZCA8LSBwYXN0ZShzcHJpbnRmKFwiJXMvJXNcIiwgc1thM3ddLCBQT1N0YWdzKSwgY29sbGFwc2UgPSBcIiBcIilcbiNsaXN0KFBPU3RhZ2dlZCA9IFBPU3RhZ2dlZCwgUE9TdGFncyA9IFBPU3RhZ3MpXG5QT1N0YWdzfVxuYGBgIn0= -->
@@ -207,80 +207,57 @@ POStags}</code></pre>
 <p>Next we do the actual scraping. Here I’m just taking the BBC’s most read headlines.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3NjcmFwZSB0aGUgcmFua2luZyBhbmQgYXJ0aWNsZSB0aXRsZXMgYXMgYSBzaW5nbGUgbGlzdFxubW9zdF9yZWFkPC1iYmNfbW9zdF9yZWFkICU+JSBcbnJlYWRfaHRtbCgpICU+JSBcbmh0bWxfbm9kZXMoXCIubW9zdC1wb3B1bGFyLXBhZ2UtbGlzdC1pdGVtIHNwYW5cIikgJT4lIFxuaHRtbF90ZXh0KClcbiNzY3JhcGUgdGhlIHBhZ2UgbGlua3MgY29ycmVzcG9uZGluZyB0byB0aGUgYXJ0aWNsZSB0aXRsZXNcbmxpbmtzPC1iYmNfbW9zdF9yZWFkICU+JSBcbnJlYWRfaHRtbCgpICU+JSBcbmh0bWxfbm9kZXMoXCIubW9zdC1wb3B1bGFyLXBhZ2UtbGlzdC1pdGVtIGFcIikgJT4lIFxuaHRtbF9hdHRyKFwiaHJlZlwiKVxuYGBgIn0= -->
-<pre class="r"><code>#scrape the ranking and article titles as a single list
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3VybCB0byB0b3AgMTAgbW9zdCByZWFkIHBhZ2UgXG5iYmNfbW9zdF9yZWFkPC0gXCJodHRwOi8vd3d3LmJiYy5jb20vbmV3cy9wb3B1bGFyL3JlYWRcIlxuI2Jhc2UgdXJsIGZvciBiYmMgd2Vic2l0ZVxuI3dlJ2xsIG5lZWQgdGhpcyBsYXRlciB0byBjb21wbGV0ZSBvdXIgbGlua3NcbmJiY19iYXNlX3VybDwtXCJodHRwOi8vd3d3LmJiYy5jb21cIlxuI3NjcmFwZSB0aGUgcmFua2luZyBhbmQgYXJ0aWNsZSB0aXRsZXMgYXMgYSBzaW5nbGUgbGlzdFxubW9zdF9yZWFkPC1iYmNfbW9zdF9yZWFkICU+JSBcbnJlYWRfaHRtbCgpICU+JSBcbmh0bWxfbm9kZXMoXCIubW9zdC1wb3B1bGFyLXBhZ2UtbGlzdC1pdGVtIHNwYW5cIikgJT4lIFxuaHRtbF90ZXh0KClcbiNleHRyYWN0IHRoZSBldmVuIG51bWJlcmVkIGVsZW1lbnRzIGluIHRoZSBsaXN0IHdoaWNoIGFyZSBhbGwgYXJ0aWNsZSB0aXRsZXMgXG50aXRsZTwtbW9zdF9yZWFkW3NlcSgyLDIwLDIpXVxudGl0bGVcbmBgYCJ9 -->
+<pre class="r"><code>#url to top 10 most read page 
+bbc_most_read&lt;- &quot;http://www.bbc.com/news/popular/read&quot;
+#base url for bbc website
+#we'll need this later to complete our links
+bbc_base_url&lt;-&quot;http://www.bbc.com&quot;
+#scrape the ranking and article titles as a single list
 most_read&lt;-bbc_most_read %&gt;% 
 read_html() %&gt;% 
 html_nodes(&quot;.most-popular-page-list-item span&quot;) %&gt;% 
 html_text()
-#scrape the page links corresponding to the article titles
-links&lt;-bbc_most_read %&gt;% 
-read_html() %&gt;% 
-html_nodes(&quot;.most-popular-page-list-item a&quot;) %&gt;% 
-html_attr(&quot;href&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Next we combine everything into a nice data frame. Most of this is actually unnecessary so I’ll scrap it at some point.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2NvbXBsZXRlIHRoZSBsaW5rcyBieSBwYXN0aW5nIHRoZSBiYXNlIHVybCB0byB0aGUgXG4jcGFnZSB1cmwgZXh0ZW5zaW9uIHJldHVybmVkIGFib3ZlXG5saW5rczwtcGFzdGUwKGJiY19iYXNlX3VybCxsaW5rcylcbiNleHRyYWN0IHRoZSBvZGQgbnVtYmVyZWQgZWxlbWVudHMgaW4gdGhlIGxpc3QgXG4jd2hpY2ggYXJlIGFsbCBudW1iZXIgcmFua2luZ3NcbnJhbms8LW1vc3RfcmVhZFtzZXEoMSwyMCwyKV1cbiNleHRyYWN0IHRoZSBldmVuIG51bWJlcmVkIGVsZW1lbnRzIGluIHRoZSBsaXN0XG4jd2hpY2ggYXJlIGFsbCBhcnRpY2xlIHRpdGxlcyBcbnRpdGxlPC1tb3N0X3JlYWRbc2VxKDIsMjAsMildXG4jc3VtbWFyaXplIG91ciByZXN1bHRzIGluIGEgZGF0YS5mcmFtZVxuZGF0YS5mcmFtZShyYW5rLHRpdGxlLGxpbmtzKVxuYGBgIn0= -->
-<pre class="r"><code>#complete the links by pasting the base url to the 
-#page url extension returned above
-links&lt;-paste0(bbc_base_url,links)
-#extract the odd numbered elements in the list 
-#which are all number rankings
-rank&lt;-most_read[seq(1,20,2)]
-#extract the even numbered elements in the list
-#which are all article titles 
+#extract the even numbered elements in the list which are all article titles 
 title&lt;-most_read[seq(2,20,2)]
-#summarize our results in a data.frame
-data.frame(rank,title,links)</code></pre>
+title</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6MTB9LCJyZGYiOiJINHNJQUFBQUFBQUFCcFZWUzI4Yk54QmU2K0dIZ0Q2QUhIcWRvb2RGa1VxMlpPdmxXd3UzUU9zNFFGc0h5SFdXTzlJU29zZ0Z5ZlZXT2ZXWEo1MWRrVUVxeElramdMdkQyZmxtNWhzT1IzL2R2SjRNWGcrU0pPa2szVzRuNlhSWjdIWDRjWlQwa3JQbS9VK1NkSit4d0YrNlgvRjcwSDVzOTJ5U0pIMWV4N3hPZUozeU9nczJuUU5IeDRvZVNEbVd2bTB0Z3Z0eEVEcmppNmlhUk9FeUNsZFJtRVpoRm9WNUZCWlJXQjRFN2d1RkxzWjluODBLaFRlV3BiY0h2RHFCMjBuUW5RWisvY0N0dDNmZmVYZkFaUGliSlMwS2NFYmxraXk0d2hqdkFMMUhzZUc5cWJ5VE9jRUxVejFZQ3FBWHZ3dkt5SzVCa2ZlVklMYlhPV1RXQ0dHVUJJdGVHazA1b0lNSFdwUEhUQkVJSzUxMFVFaDI3NnFTN0JidGhyd0xQbWQva0ZLN2xYUUYxTWlQcW9SVXlRM3hUcWtTMlQ0Rm8rSG55bm1MU3FLR2pGQVVBVDI5bFVweHhNSTRqMnVDRzFKWW95VW9PU3JEekdvbEJkUGhKQ2kvaHZUZVl2bDlHc0MvM0RGZFRvMEIyc0ZMWTMwQnQ4WVNNZ3hTODBDMkxraHRwVjZuWU1tVlJqc0NiMEJYUWhGYXFGd3N6TTBkUnlzTG95VmV3OTlDa21hL3pGZFlyaWJVeFE2SWE2UFhYTzVLNTZ4bkdsdGtraVdaa211RWVtMTN3ZGY0WldscVRobTFadU9teUNrZmp0anMwNUNjZ3RSQW1vOWgxN0JrZ3dEODdzOUt2bWxTOXdWWGoyaVRPdEJVeDgrVCs0S1lCY0lkTmtCeWpsMy8rb3JQRW5PeXJpbHlUaXR1Q2dKWGtzNDVYa0RPNzIyMUxZRldLeEllMG9LUE55UFNzRFltaDVXeDhPbzJCWWM3NXNYRStaUWdRODFOdEcrOTdyc25OZk5aYU5yVDBOUkg0Y0xHNWo3ZTIzMjBtWDhzdkMrdno4L3J1aDVsbVJnSnN6MXZtSjlubFpPYW1RNHZGNHVyNlhRKy9STEFkRElkeC91YVBnWW9DSlV2V3YrVDZXejhPZjliWE9NYmpyQlBhRDZQdytPSHh3RFZwazFsZkxHTXFmejBDZE9TcjZHWFlzOTN1WmpGS2ZQOE1VeHRyTXFINkNTMllTNld5MWlpaTg5QTRuMXNjSmV6eTFsa012dzBqaXByeXBiKzlISnhOWDVhc01vTitjWmczZ2E3NGtKUG50SmEveCtyR3JjVXgybzNLSHVXK3pRYWVPbFZ2TTk5SmZYR0hiZzRzNlllUlRkTjIzYitUZHJmNEpGc0JqbDZISzBzUXo2UzBZa3BtM0hKempyUFF1OS9DRDZ5QjRwdkt0MEV6NGVpcVBSbU9QbmdUeUFKQ1IwRlhaUzcrNUM5bUZnL2xvbjBtcHZ3UFZuTVNJWE4xMHl5NVRqaTJhSjlaTUphTi9MR1k3UWI4TVNQbXBaYjh2WS9vQXQzQ1o0SEFBQT0ifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["rank"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["title"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["links"],"name":[3],"type":["fctr"],"align":["left"]}],"data":[{"1":"1","2":"French soldier shoots attacker outside Louvre","3":"http://www.bbc.com/news/world-europe-38853841"},{"1":"2","2":"Iceberg lettuces and broccoli rationed as vegetable crisis hits supermarkets","3":"http://www.bbc.com/news/uk-38851097"},{"1":"3","2":"Jellyfish wash up 'like wallpaper' on Australian beach","3":"http://www.bbc.com/news/world-australia-38836362"},{"1":"4","2":"Npower announces 'shocking' rise in energy prices","3":"http://www.bbc.com/news/business-38852517"},{"1":"5","2":"Trump effect 'has been good for UK' says central banker","3":"http://www.bbc.com/news/business-38845575"},{"1":"6","2":"Quiz of the week's news","3":"http://www.bbc.com/news/magazine-38845772"},{"1":"7","2":"Misophonia: Scientists crack why eating sounds can make people angry","3":"http://www.bbc.com/news/health-38842561"},{"1":"8","2":"Mattis warns North Korea of 'overwhelming' response to nuclear use","3":"http://www.bbc.com/news/world-asia-38850995"},{"1":"9","2":"Theresa May presses EU leaders on defence spending","3":"http://www.bbc.com/news/uk-politics-38849868"},{"1":"10","2":"Killed hostage Delaware prison officer cried: 'Trap!'","3":"http://www.bbc.com/news/world-us-canada-38844252"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[10]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIkZyZW5jaCBzb2xkaWVyIHNob290cyBhdHRhY2tlciBvdXRzaWRlIExvdXZyZVwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFsyXSBcIkJCQyBwcmVzZW50ZXIgRW1pbHkgTWFpdGxpcyBpbiAndG9ydHVyZScgdHdlZXQgbWl4LXVwXCIgICAgICAgICAgICAgICAgICAgICAgIFxuIFszXSBcIkJyZXhpdDogRnJlc2ggbGVnYWwgY2hhbGxlbmdlIGJsb2NrZWQgYnkgSGlnaCBDb3VydFwiICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFs0XSBcIkRpZCBEb25hbGQgVHJ1bXAgYWR2aXNlciBLZWxseWFubmUgQ29ud2F5IGp1c3QgaW52ZW50IGEgbWFzc2FjcmU/XCIgICAgICAgICAgIFxuIFs1XSBcIldvbWFuIGlzIGNoYXJnZWQgd2l0aCBtdXJkZXIgYWZ0ZXIgYSBtYW4gd2FzIGF0dGFja2VkIHdpdGggYWNpZFwiICAgICAgICAgICAgIFxuIFs2XSBcIkJvd2xpbmcgR3JlZW4gbWFzc2FjcmU6IFRydW1wIGFpZGUgY2l0ZXMgbm9uLWV4aXN0ZW50IGF0dGFja1wiICAgICAgICAgICAgICAgIFxuIFs3XSBcIkljZWJlcmcgbGV0dHVjZXMgYW5kIGJyb2Njb2xpIHJhdGlvbmVkIGFzIHZlZ2V0YWJsZSBjcmlzaXMgaGl0cyBzdXBlcm1hcmtldHNcIlxuIFs4XSBcIk1pY2hhZWwgQnVibGU6IFNvbiBOb2FoJ3MgY2FuY2VyIHRyZWF0bWVudCBpcyAncHJvZ3Jlc3Npbmcgd2VsbCdcIiAgICAgICAgICAgIFxuIFs5XSBcIlRoZXJlc2EgTWF5IHByZXNzZXMgRVUgbGVhZGVycyBvbiBkZWZlbmNlIHNwZW5kaW5nXCIgICAgICAgICAgICAgICAgICAgICAgICAgIFxuWzEwXSBcIk5wb3dlciBmYWNpbmcgYmFja2xhc2ggb3ZlciBlbmVyZ3kgcHJpY2UgcmlzZXNcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIn0= -->
+<pre><code> [1] &quot;French soldier shoots attacker outside Louvre&quot;                               
+ [2] &quot;BBC presenter Emily Maitlis in 'torture' tweet mix-up&quot;                       
+ [3] &quot;Brexit: Fresh legal challenge blocked by High Court&quot;                         
+ [4] &quot;Did Donald Trump adviser Kellyanne Conway just invent a massacre?&quot;           
+ [5] &quot;Woman is charged with murder after a man was attacked with acid&quot;             
+ [6] &quot;Bowling Green massacre: Trump aide cites non-existent attack&quot;                
+ [7] &quot;Iceberg lettuces and broccoli rationed as vegetable crisis hits supermarkets&quot;
+ [8] &quot;Michael Buble: Son Noah's cancer treatment is 'progressing well'&quot;            
+ [9] &quot;Theresa May presses EU leaders on defence spending&quot;                          
+[10] &quot;Npower facing backlash over energy price rises&quot;                              </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Now the fun part. We select a random headline, tag the parts of speech, pick out nouns that start with lowercase letters, prefix them with neuro-, then combine them back into a sentence.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VsZWN0ZWRIZWFkbGluZSA8LSBzYW1wbGUoMToxMCwxKVxub2xkSGVhZGxpbmUgPC0gdGl0bGVbc2VsZWN0ZWRIZWFkbGluZV1cbnRtcHNwbGl0IDwtIHVubGlzdChzdHJzcGxpdChvbGRIZWFkbGluZSxcIiBcIikpXG5vbGRIZWFkbGluZVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VsZWN0ZWRIZWFkbGluZSA8LSBzYW1wbGUoMToxMCwxKVxub2xkSGVhZGxpbmUgPC0gdGl0bGVbc2VsZWN0ZWRIZWFkbGluZV1cbnRtcHNwbGl0IDwtIHVubGlzdChzdHJzcGxpdChvbGRIZWFkbGluZSxcIiBcIikpXG50YWdnZWRIZWFkbGluZSA8LSB0YWdQT1Moc3Ryc3BsaXQoZ3N1YihcIlteWzphbG51bTpdIF1cIixcIlwiLG9sZEhlYWRsaW5lKSxcIiBcIilbWzFdXSlcbm5vdW5JbmRleCA8LSBncmVwKFwiTk5cIix0YWdnZWRIZWFkbGluZSlcbnJsZShkaWZmKG5vdW5JbmRleCkpXG5gYGAifQ== -->
 <pre class="r"><code>selectedHeadline &lt;- sample(1:10,1)
 oldHeadline &lt;- title[selectedHeadline]
 tmpsplit &lt;- unlist(strsplit(oldHeadline,&quot; &quot;))
-oldHeadline</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiUXVpeiBvZiB0aGUgd2VlaydzIG5ld3NcIlxuIn0= -->
-<pre><code>[1] &quot;Quiz of the week's news&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3RhZ2dlZEhlYWRsaW5lIDwtIHRhZ1BPUyhvbGRIZWFkbGluZSlcbnRhZ2dlZEhlYWRsaW5lIDwtIHRhZ1BPUyhzdHJzcGxpdChnc3ViKFwiW15bOmFsbnVtOl0gXVwiLFwiXCIsb2xkSGVhZGxpbmUpLFwiIFwiKVtbMV1dKVxudGFnZ2VkSGVhZGxpbmVcbmBgYCJ9 -->
-<pre class="r"><code>#taggedHeadline &lt;- tagPOS(oldHeadline)
 taggedHeadline &lt;- tagPOS(strsplit(gsub(&quot;[^[:alnum:] ]&quot;,&quot;&quot;,oldHeadline),&quot; &quot;)[[1]])
-taggedHeadline</code></pre>
+nounIndex &lt;- grep(&quot;NN&quot;,taggedHeadline)
+rle(diff(nounIndex))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTk5QXCIgXCJJTlwiICBcIkRUXCIgIFwiTk5TXCIgXCJOTlwiIFxuIn0= -->
-<pre><code>[1] &quot;NNP&quot; &quot;IN&quot;  &quot;DT&quot;  &quot;NNS&quot; &quot;NN&quot; </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUnVuIExlbmd0aCBFbmNvZGluZ1xuICBsZW5ndGhzOiBpbnQgWzE6Ml0gMiAxXG4gIHZhbHVlcyA6IGludCBbMToyXSAzIDFcbiJ9 -->
+<pre><code>Run Length Encoding
+  lengths: int [1:2] 2 1
+  values : int [1:2] 3 1</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm91bkluZGV4IDwtIGdyZXAoXCJOTlwiLHRhZ2dlZEhlYWRsaW5lKVxubm91bkluZGV4XG5gYGAifQ== -->
-<pre class="r"><code>nounIndex &lt;- grep(&quot;NN&quot;,taggedHeadline)
-nounIndex</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEgNCA1XG4ifQ== -->
-<pre><code>[1] 1 4 5</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm91bnMgPC0gdG1wc3BsaXRbbm91bkluZGV4XVxubG93ZXJJZHggPC0gZ3JlcChcIiheW1s6bG93ZXI6XV0pXCIsbm91bnMpXG5ub3VucyA8LSBub3Vuc1tsb3dlcklkeF1cbm5vdW5JbmRleCA8LSBub3VuSW5kZXhbbG93ZXJJZHhdXG4jbm91bkluZGV4W2dyZXAoXCIoXltbOmxvd2VyOl1dKVwiLG5vdW5zKV1cbm5ld05vdW5zIDwtIHBhc3RlKFwibmV1cm9cIixub3VucyxzZXAgPSBcIlwiKVxuI25ld05vdW5zW2xvd2VySWR4XVxudG1wIDwtIHRtcHNwbGl0XG5mb3IgKGkgaW4gMTpsZW5ndGgobG93ZXJJZHgpKSB7XG4gIHRtcFtub3VuSW5kZXhbaV1dIDwtIG5ld05vdW5zW2ldXG59XG4jdG1wXG5wYXN0ZSh0bXAsY29sbGFwc2UgPSBcIiBcIilcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm91bnMgPC0gdG1wc3BsaXRbbm91bkluZGV4XVxubG93ZXJJZHggPC0gZ3JlcChcIiheW1s6bG93ZXI6XV0pXCIsbm91bnMpXG5ub3VucyA8LSBub3Vuc1tsb3dlcklkeF1cbm5vdW5JbmRleCA8LSBub3VuSW5kZXhbbG93ZXJJZHhdXG5uZXdOb3VucyA8LSBwYXN0ZShcIm5ldXJvXCIsbm91bnMsc2VwID0gXCJcIilcbnRtcCA8LSB0bXBzcGxpdFxuZm9yIChpIGluIDE6bGVuZ3RoKGxvd2VySWR4KSkge1xuICB0bXBbbm91bkluZGV4W2ldXSA8LSBuZXdOb3Vuc1tpXVxufVxuI3RtcFxucGFzdGUodG1wLGNvbGxhcHNlID0gXCIgXCIpXG5gYGAifQ== -->
 <pre class="r"><code>nouns &lt;- tmpsplit[nounIndex]
 lowerIdx &lt;- grep(&quot;(^[[:lower:]])&quot;,nouns)
 nouns &lt;- nouns[lowerIdx]
 nounIndex &lt;- nounIndex[lowerIdx]
-#nounIndex[grep(&quot;(^[[:lower:]])&quot;,nouns)]
 newNouns &lt;- paste(&quot;neuro&quot;,nouns,sep = &quot;&quot;)
-#newNouns[lowerIdx]
 tmp &lt;- tmpsplit
 for (i in 1:length(lowerIdx)) {
   tmp[nounIndex[i]] &lt;- newNouns[i]
@@ -288,24 +265,50 @@ for (i in 1:length(lowerIdx)) {
 #tmp
 paste(tmp,collapse = &quot; &quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiUXVpeiBvZiB0aGUgbmV1cm93ZWVrJ3MgbmV1cm9uZXdzXCJcbiJ9 -->
-<pre><code>[1] &quot;Quiz of the neuroweek's neuronews&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQnJleGl0OiBGcmVzaCBsZWdhbCBuZXVyb2NoYWxsZW5nZSBibG9ja2VkIGJ5IEhpZ2ggQ291cnRcIlxuIn0= -->
+<pre><code>[1] &quot;Brexit: Fresh legal neurochallenge blocked by High Court&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Now to do the twittering…</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYXBpX2tleXMgPC0gcmVhZC5jc3YoXCJ0d2l0dGVyX2FjY2Vzcy5jc3ZcIiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKVxuXG5gYGAifQ== -->
-<pre class="r"><code>api_keys &lt;- read.csv(&quot;twitter_access.csv&quot;, stringsAsFactors = FALSE)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICMgc2V0IHVwIHR3aXR0ZXIgYXBpXG5hcGlfa2V5cyA8LSByZWFkX2NzdihcIn4vR2l0SHViL25ldXJvcHJlZml4ZXIvdHdpdHRlcl9hY2Nlc3MuY3N2XCIpXG5gYGAifQ== -->
+<pre class="r"><code> # set up twitter api
+api_keys &lt;- read_csv(&quot;~/GitHub/neuroprefixer/twitter_access.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiaW5jb21wbGV0ZSBmaW5hbCBsaW5lIGZvdW5kIGJ5IHJlYWRUYWJsZUhlYWRlciBvbiAndHdpdHRlcl9hY2Nlc3MuY3N2J1xuIn0= -->
-<pre><code>incomplete final line found by readTableHeader on 'twitter_access.csv'</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBjb25zdW1lcl9rZXkgPSBjb2xfY2hhcmFjdGVyKCksXG4gIGNvbnN1bWVyX3NlY3JldCA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgYWNjZXNzX3Rva2VuID0gY29sX2NoYXJhY3RlcigpLFxuICBhY2Nlc3Nfc2VjcmV0ID0gY29sX2NoYXJhY3RlcigpXG4pXG4ifQ== -->
+<pre><code>Parsed with column specification:
+cols(
+  consumer_key = col_character(),
+  consumer_secret = col_character(),
+  access_token = col_character(),
+  access_secret = col_character()
+)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0dXBfdHdpdHRlcl9vYXV0aChjb25zdW1lcl9rZXkgPSBhcGlfa2V5cyRjb25zdW1lcl9rZXksXG4gICAgICAgICAgICAgICAgICAgICAgY29uc3VtZXJfc2VjcmV0ID0gYXBpX2tleXMkY29uc3VtZXJfc2VjcmV0LFxuICAgICAgICAgICAgICAgICAgICAgIGFjY2Vzc190b2tlbiA9IGFwaV9rZXlzJGFjY2Vzc190b2tlbixcbiAgICAgICAgICAgICAgICAgICAgICBhY2Nlc3Nfc2VjcmV0ID0gYXBpX2tleXMkYWNjZXNzX3NlY3JldClcbmBgYCJ9 -->
+<pre class="r"><code>setup_twitter_oauth(consumer_key = api_keys$consumer_key,
+                      consumer_secret = api_keys$consumer_secret,
+                      access_token = api_keys$access_token,
+                      access_secret = api_keys$access_secret)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVXNpbmcgZGlyZWN0IGF1dGhlbnRpY2F0aW9uXCJcbiJ9 -->
+<pre><code>[1] &quot;Using direct authentication&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGltZSA8LSBTeXMudGltZSgpXG4gIFxuIyBjcmVhdGUgdHdlZXRcbnR3ZWV0X3RleHQgPC0gcGFzdGUodG1wLGNvbGxhcHNlID0gXCIgXCIpXG4gICMgc2VuZCB0d2VldFxuICB0d2VldCh0d2VldF90ZXh0KVxuYGBgIn0= -->
+<pre class="r"><code>time &lt;- Sys.time()
+  
+# create tweet
+tweet_text &lt;- paste(tmp,collapse = &quot; &quot;)
+  # send tweet
+  tweet(tweet_text)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTmV1cm9wcmVmaXhlcjogQnJleGl0OiBGcmVzaCBsZWdhbCBuZXVyb2NoYWxsZW5nZSBibG9ja2VkIGJ5IEhpZ2ggQ291cnRcIlxuIn0= -->
+<pre><code>[1] &quot;Neuroprefixer: Brexit: Fresh legal neurochallenge blocked by High Court&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk5ldXJvcHJlZml4ZXIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciBsb2FkUGFja2FnZXN9DQpsaWJyYXJ5KHJ2ZXN0KQ0KbGlicmFyeShvcGVuTkxQKQ0KbGlicmFyeShOTFApDQpsaWJyYXJ5KHR3aXR0ZVIpDQpgYGANCg0KSSBnb3QgdGhlIGlkZWEgZm9yIHRoaXMgZnJvbSBNb2xseSBXaGl0ZSdzIFtDeWJlcnByZWZpeGVyXShodHRwczovL3R3aXR0ZXIuY29tL2N5YmVycHJlZml4ZXIpLCB3aGljaCBzY3JhcGVzIG5ld3MgaGVhZGxpbmVzIGFuZCBhZGRzIHRoZSBwcmVmaXggY3liZXItIHRvIHJhbmRvbSBub3Vucy4gSSBzdG9sZSBiaXRzIG9mIGNvZGUgZnJvbSB2YXJpb3VzIHBsYWNlczogDQpodHRwOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzM1NzcyNzIwL3RhZ2dpbmctcGFydC1vZi1zcGVlY2gtZm9yLWEtcGFydGljdWxhci13b3JkLWluLXINCmh0dHA6Ly9ycHVicy5jb20vUmFudGhvbnlfXy93ZWItc2NyYXBpbmctYWN0aXZpdHktMTANCg0KRmlyc3QgSSBkZWZpbmUgYSBjdXN0b20gZnVuY3Rpb24gdG8gdGFnIHRoZSBwYXJ0cyBvZiBzcGVlY2ggKGkuZS4gd29yayBvdXQgd2hpY2ggd29yZHMgYXJlIG5vdW5zKQ0KDQpgYGB7ciB0YWdQYXJ0c09mU3BlZWNofQ0KdGFnUE9TIDwtICBmdW5jdGlvbih4LCAuLi4pIHsNCnMgPC0gYXMuU3RyaW5nKHgpDQp3b3JkX3Rva2VuX2Fubm90YXRvciA8LSBNYXhlbnRfV29yZF9Ub2tlbl9Bbm5vdGF0b3IoKQ0KYTIgPC0gQW5ub3RhdGlvbigxTCwgInNlbnRlbmNlIiwgMUwsIG5jaGFyKHMpKQ0KYTIgPC0gYW5ub3RhdGUocywgd29yZF90b2tlbl9hbm5vdGF0b3IsIGEyKQ0KYTMgPC0gYW5ub3RhdGUocywgTWF4ZW50X1BPU19UYWdfQW5ub3RhdG9yKCksIGEyKQ0KYTN3IDwtIGEzW2EzJHR5cGUgPT0gIndvcmQiXQ0KUE9TdGFncyA8LSB1bmxpc3QobGFwcGx5KGEzdyRmZWF0dXJlcywgYFtbYCwgIlBPUyIpKQ0KI1BPU3RhZ2dlZCA8LSBwYXN0ZShzcHJpbnRmKCIlcy8lcyIsIHNbYTN3XSwgUE9TdGFncyksIGNvbGxhcHNlID0gIiAiKQ0KI2xpc3QoUE9TdGFnZ2VkID0gUE9TdGFnZ2VkLCBQT1N0YWdzID0gUE9TdGFncykNClBPU3RhZ3N9DQpgYGANCg0KTmV4dCB3ZSBkbyB0aGUgYWN0dWFsIHNjcmFwaW5nLiBIZXJlIEknbSBqdXN0IHRha2luZyB0aGUgQkJDJ3MgbW9zdCByZWFkIGhlYWRsaW5lcy4NCg0KYGBge3Igc2V0VVJMc30NCiN1cmwgdG8gdG9wIDEwIG1vc3QgcmVhZCBwYWdlIA0KYmJjX21vc3RfcmVhZDwtICJodHRwOi8vd3d3LmJiYy5jb20vbmV3cy9wb3B1bGFyL3JlYWQiDQoNCiNiYXNlIHVybCBmb3IgYmJjIHdlYnNpdGUNCiN3ZSdsbCBuZWVkIHRoaXMgbGF0ZXIgdG8gY29tcGxldGUgb3VyIGxpbmtzDQpiYmNfYmFzZV91cmw8LSJodHRwOi8vd3d3LmJiYy5jb20iDQoNCiNzY3JhcGUgdGhlIHJhbmtpbmcgYW5kIGFydGljbGUgdGl0bGVzIGFzIGEgc2luZ2xlIGxpc3QNCm1vc3RfcmVhZDwtYmJjX21vc3RfcmVhZCAlPiUgDQpyZWFkX2h0bWwoKSAlPiUgDQpodG1sX25vZGVzKCIubW9zdC1wb3B1bGFyLXBhZ2UtbGlzdC1pdGVtIHNwYW4iKSAlPiUgDQpodG1sX3RleHQoKQ0KDQojc2NyYXBlIHRoZSBwYWdlIGxpbmtzIGNvcnJlc3BvbmRpbmcgdG8gdGhlIGFydGljbGUgdGl0bGVzDQpsaW5rczwtYmJjX21vc3RfcmVhZCAlPiUgDQpyZWFkX2h0bWwoKSAlPiUgDQpodG1sX25vZGVzKCIubW9zdC1wb3B1bGFyLXBhZ2UtbGlzdC1pdGVtIGEiKSAlPiUgDQpodG1sX2F0dHIoImhyZWYiKQ0KYGBgDQoNCk5leHQgd2UgY29tYmluZSBldmVyeXRoaW5nIGludG8gYSBuaWNlIGRhdGEgZnJhbWUuIE1vc3Qgb2YgdGhpcyBpcyBhY3R1YWxseSB1bm5lY2Vzc2FyeSBzbyBJJ2xsIHNjcmFwIGl0IGF0IHNvbWUgcG9pbnQuDQoNCmBgYHtyfQ0KI2NvbXBsZXRlIHRoZSBsaW5rcyBieSBwYXN0aW5nIHRoZSBiYXNlIHVybCB0byB0aGUgDQojcGFnZSB1cmwgZXh0ZW5zaW9uIHJldHVybmVkIGFib3ZlDQpsaW5rczwtcGFzdGUwKGJiY19iYXNlX3VybCxsaW5rcykNCg0KI2V4dHJhY3QgdGhlIG9kZCBudW1iZXJlZCBlbGVtZW50cyBpbiB0aGUgbGlzdCANCiN3aGljaCBhcmUgYWxsIG51bWJlciByYW5raW5ncw0KcmFuazwtbW9zdF9yZWFkW3NlcSgxLDIwLDIpXQ0KDQojZXh0cmFjdCB0aGUgZXZlbiBudW1iZXJlZCBlbGVtZW50cyBpbiB0aGUgbGlzdA0KI3doaWNoIGFyZSBhbGwgYXJ0aWNsZSB0aXRsZXMgDQp0aXRsZTwtbW9zdF9yZWFkW3NlcSgyLDIwLDIpXQ0KDQojc3VtbWFyaXplIG91ciByZXN1bHRzIGluIGEgZGF0YS5mcmFtZQ0KZGF0YS5mcmFtZShyYW5rLHRpdGxlLGxpbmtzKQ0KYGBgDQoNCk5vdyB0aGUgZnVuIHBhcnQuIFdlIHNlbGVjdCBhIHJhbmRvbSBoZWFkbGluZSwgdGFnIHRoZSBwYXJ0cyBvZiBzcGVlY2gsIHBpY2sgb3V0IG5vdW5zIHRoYXQgc3RhcnQgd2l0aCBsb3dlcmNhc2UgbGV0dGVycywgcHJlZml4IHRoZW0gd2l0aCBuZXVyby0sIHRoZW4gY29tYmluZSB0aGVtIGJhY2sgaW50byBhIHNlbnRlbmNlLg0KDQpgYGB7ciB9DQpzZWxlY3RlZEhlYWRsaW5lIDwtIHNhbXBsZSgxOjEwLDEpDQpvbGRIZWFkbGluZSA8LSB0aXRsZVtzZWxlY3RlZEhlYWRsaW5lXQ0KdG1wc3BsaXQgPC0gdW5saXN0KHN0cnNwbGl0KG9sZEhlYWRsaW5lLCIgIikpDQp0YWdnZWRIZWFkbGluZSA8LSB0YWdQT1Moc3Ryc3BsaXQoZ3N1YigiW15bOmFsbnVtOl0gXSIsIiIsb2xkSGVhZGxpbmUpLCIgIilbWzFdXSkNCm5vdW5JbmRleCA8LSBncmVwKCJOTiIsdGFnZ2VkSGVhZGxpbmUpDQpub3VucyA8LSB0bXBzcGxpdFtub3VuSW5kZXhdDQpsb3dlcklkeCA8LSBncmVwKCIoXltbOmxvd2VyOl1dKSIsbm91bnMpDQpub3VucyA8LSBub3Vuc1tsb3dlcklkeF0NCm5vdW5JbmRleCA8LSBub3VuSW5kZXhbbG93ZXJJZHhdDQpuZXdOb3VucyA8LSBwYXN0ZSgibmV1cm8iLG5vdW5zLHNlcCA9ICIiKQ0KDQp0bXAgPC0gdG1wc3BsaXQNCmZvciAoaSBpbiAxOmxlbmd0aChsb3dlcklkeCkpIHsNCiAgdG1wW25vdW5JbmRleFtpXV0gPC0gbmV3Tm91bnNbaV0NCn0NCiN0bXANCnBhc3RlKHRtcCxjb2xsYXBzZSA9ICIgIikNCmBgYA0KDQpOb3cgdG8gZG8gdGhlIHR3aXR0ZXJpbmcuLi4NCmBgYHtyfQ0KICMgc2V0IHVwIHR3aXR0ZXIgYXBpDQphcGlfa2V5cyA8LSB0d2l0dGVyX2FjY2VzcyA8LSByZWFkX2Nzdigifi9HaXRIdWIvbmV1cm9wcmVmaXhlci90d2l0dGVyX2FjY2Vzcy5jc3YiKQ0Kc2V0dXBfdHdpdHRlcl9vYXV0aChjb25zdW1lcl9rZXkgPSBhcGlfa2V5cyRjb25zdW1lcl9rZXksDQogICAgICAgICAgICAgICAgICAgICAgY29uc3VtZXJfc2VjcmV0ID0gYXBpX2tleXMkY29uc3VtZXJfc2VjcmV0LA0KICAgICAgICAgICAgICAgICAgICAgIGFjY2Vzc190b2tlbiA9IGFwaV9rZXlzJGFjY2Vzc190b2tlbiwNCiAgICAgICAgICAgICAgICAgICAgICBhY2Nlc3Nfc2VjcmV0ID0gYXBpX2tleXMkYWNjZXNzX3NlY3JldCkNCnRpbWUgPC0gU3lzLnRpbWUoKQ0KICANCiMgY3JlYXRlIHR3ZWV0DQp0d2VldF90ZXh0IDwtIHBhc3RlKHRtcCxjb2xsYXBzZSA9ICIgIikNCiAgIyBzZW5kIHR3ZWV0DQogIHR3ZWV0KHR3ZWV0X3RleHQpDQpgYGANCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk5ldXJvcHJlZml4ZXIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciBsb2FkUGFja2FnZXN9DQpsaWJyYXJ5KHJ2ZXN0KQ0KbGlicmFyeShvcGVuTkxQKQ0KbGlicmFyeShOTFApDQpsaWJyYXJ5KHR3aXR0ZVIpDQpgYGANCg0KSSBnb3QgdGhlIGlkZWEgZm9yIHRoaXMgZnJvbSBNb2xseSBXaGl0ZSdzIFtDeWJlcnByZWZpeGVyXShodHRwczovL3R3aXR0ZXIuY29tL2N5YmVycHJlZml4ZXIpLCB3aGljaCBzY3JhcGVzIG5ld3MgaGVhZGxpbmVzIGFuZCBhZGRzIHRoZSBwcmVmaXggY3liZXItIHRvIHJhbmRvbSBub3Vucy4gSSBzdG9sZSBiaXRzIG9mIGNvZGUgZnJvbSB2YXJpb3VzIHBsYWNlczogDQpodHRwOi8vcnB1YnMuY29tL1JhbnRob255X18vd2ViLXNjcmFwaW5nLWFjdGl2aXR5LTEwDQpodHRwczovL3d3dy5yLWJsb2dnZXJzLmNvbS90dXRvcmlhbC1ob3ctdG8tc2V0LXVwLWEtdHdpdHRlci1ib3QtdXNpbmctci8NCg0KRmlyc3QgSSBkZWZpbmUgYSBjdXN0b20gZnVuY3Rpb24gdG8gdGFnIHRoZSBwYXJ0cyBvZiBzcGVlY2ggKGkuZS4gd29yayBvdXQgd2hpY2ggd29yZHMgYXJlIG5vdW5zKS4gKG5pY2tlZCBmcm9tIGh0dHA6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzU3NzI3MjAvdGFnZ2luZy1wYXJ0LW9mLXNwZWVjaC1mb3ItYS1wYXJ0aWN1bGFyLXdvcmQtaW4tcikNCg0KYGBge3IgdGFnUGFydHNPZlNwZWVjaH0NCnRhZ1BPUyA8LSAgZnVuY3Rpb24oeCwgLi4uKSB7DQpzIDwtIGFzLlN0cmluZyh4KQ0Kd29yZF90b2tlbl9hbm5vdGF0b3IgPC0gTWF4ZW50X1dvcmRfVG9rZW5fQW5ub3RhdG9yKCkNCmEyIDwtIEFubm90YXRpb24oMUwsICJzZW50ZW5jZSIsIDFMLCBuY2hhcihzKSkNCmEyIDwtIGFubm90YXRlKHMsIHdvcmRfdG9rZW5fYW5ub3RhdG9yLCBhMikNCmEzIDwtIGFubm90YXRlKHMsIE1heGVudF9QT1NfVGFnX0Fubm90YXRvcigpLCBhMikNCmEzdyA8LSBhM1thMyR0eXBlID09ICJ3b3JkIl0NClBPU3RhZ3MgPC0gdW5saXN0KGxhcHBseShhM3ckZmVhdHVyZXMsIGBbW2AsICJQT1MiKSkNCiNQT1N0YWdnZWQgPC0gcGFzdGUoc3ByaW50ZigiJXMvJXMiLCBzW2Ezd10sIFBPU3RhZ3MpLCBjb2xsYXBzZSA9ICIgIikNCiNsaXN0KFBPU3RhZ2dlZCA9IFBPU3RhZ2dlZCwgUE9TdGFncyA9IFBPU3RhZ3MpDQpQT1N0YWdzfQ0KYGBgDQoNCk5leHQgd2UgZG8gdGhlIGFjdHVhbCBzY3JhcGluZy4gSGVyZSBJJ20ganVzdCB0YWtpbmcgdGhlIEJCQydzIG1vc3QgcmVhZCBoZWFkbGluZXMuDQoNCmBgYHtyIHNldFVSTHN9DQojdXJsIHRvIHRvcCAxMCBtb3N0IHJlYWQgcGFnZSANCmJiY19tb3N0X3JlYWQ8LSAiaHR0cDovL3d3dy5iYmMuY29tL25ld3MvcG9wdWxhci9yZWFkIg0KDQojYmFzZSB1cmwgZm9yIGJiYyB3ZWJzaXRlDQojd2UnbGwgbmVlZCB0aGlzIGxhdGVyIHRvIGNvbXBsZXRlIG91ciBsaW5rcw0KYmJjX2Jhc2VfdXJsPC0iaHR0cDovL3d3dy5iYmMuY29tIg0KDQojc2NyYXBlIHRoZSByYW5raW5nIGFuZCBhcnRpY2xlIHRpdGxlcyBhcyBhIHNpbmdsZSBsaXN0DQptb3N0X3JlYWQ8LWJiY19tb3N0X3JlYWQgJT4lIA0KcmVhZF9odG1sKCkgJT4lIA0KaHRtbF9ub2RlcygiLm1vc3QtcG9wdWxhci1wYWdlLWxpc3QtaXRlbSBzcGFuIikgJT4lIA0KaHRtbF90ZXh0KCkNCg0KDQojZXh0cmFjdCB0aGUgZXZlbiBudW1iZXJlZCBlbGVtZW50cyBpbiB0aGUgbGlzdCB3aGljaCBhcmUgYWxsIGFydGljbGUgdGl0bGVzIA0KdGl0bGU8LW1vc3RfcmVhZFtzZXEoMiwyMCwyKV0NCnRpdGxlDQpgYGANCg0KTm93IHRoZSBmdW4gcGFydC4gV2Ugc2VsZWN0IGEgcmFuZG9tIGhlYWRsaW5lLCB0YWcgdGhlIHBhcnRzIG9mIHNwZWVjaCwgcGljayBvdXQgbm91bnMgdGhhdCBzdGFydCB3aXRoIGxvd2VyY2FzZSBsZXR0ZXJzLCBwcmVmaXggdGhlbSB3aXRoIG5ldXJvLSwgdGhlbiBjb21iaW5lIHRoZW0gYmFjayBpbnRvIGEgc2VudGVuY2UuDQoNCmBgYHtyIGNyZWF0ZU5ld0hlYWRsaW5lIH0NCnNlbGVjdGVkSGVhZGxpbmUgPC0gc2FtcGxlKDE6MTAsMSkNCm9sZEhlYWRsaW5lIDwtIHRpdGxlW3NlbGVjdGVkSGVhZGxpbmVdDQp0bXBzcGxpdCA8LSB1bmxpc3Qoc3Ryc3BsaXQob2xkSGVhZGxpbmUsIiAiKSkNCnRhZ2dlZEhlYWRsaW5lIDwtIHRhZ1BPUyhzdHJzcGxpdChnc3ViKCJbXls6YWxudW06XSBdIiwiIixvbGRIZWFkbGluZSksIiAiKVtbMV1dKQ0Kbm91bkluZGV4IDwtIGdyZXAoIk5OIix0YWdnZWRIZWFkbGluZSkNCnJsZShkaWZmKG5vdW5JbmRleCkpDQpub3VucyA8LSB0bXBzcGxpdFtub3VuSW5kZXhdDQpsb3dlcklkeCA8LSBncmVwKCIoXltbOmxvd2VyOl1dKSIsbm91bnMpDQpub3VucyA8LSBub3Vuc1tsb3dlcklkeF0NCm5vdW5JbmRleCA8LSBub3VuSW5kZXhbbG93ZXJJZHhdDQpuZXdOb3VucyA8LSBwYXN0ZSgibmV1cm8iLG5vdW5zLHNlcCA9ICIiKQ0KDQp0bXAgPC0gdG1wc3BsaXQNCmZvciAoaSBpbiAxOmxlbmd0aChsb3dlcklkeCkpIHsNCiAgdG1wW25vdW5JbmRleFtpXV0gPC0gbmV3Tm91bnNbaV0NCn0NCiN0bXANCnBhc3RlKHRtcCxjb2xsYXBzZSA9ICIgIikNCmBgYA0KDQpOb3cgdG8gZG8gdGhlIHR3aXR0ZXJpbmcuLi4NCg0KYGBge3J9DQogIyBzZXQgdXAgdHdpdHRlciBhcGkNCmFwaV9rZXlzIDwtIHJlYWRfY3N2KCJ+L0dpdEh1Yi9uZXVyb3ByZWZpeGVyL3R3aXR0ZXJfYWNjZXNzLmNzdiIpDQpzZXR1cF90d2l0dGVyX29hdXRoKGNvbnN1bWVyX2tleSA9IGFwaV9rZXlzJGNvbnN1bWVyX2tleSwNCiAgICAgICAgICAgICAgICAgICAgICBjb25zdW1lcl9zZWNyZXQgPSBhcGlfa2V5cyRjb25zdW1lcl9zZWNyZXQsDQogICAgICAgICAgICAgICAgICAgICAgYWNjZXNzX3Rva2VuID0gYXBpX2tleXMkYWNjZXNzX3Rva2VuLA0KICAgICAgICAgICAgICAgICAgICAgIGFjY2Vzc19zZWNyZXQgPSBhcGlfa2V5cyRhY2Nlc3Nfc2VjcmV0KQ0KdGltZSA8LSBTeXMudGltZSgpDQogIA0KIyBjcmVhdGUgdHdlZXQNCnR3ZWV0X3RleHQgPC0gcGFzdGUodG1wLGNvbGxhcHNlID0gIiAiKQ0KICAjIHNlbmQgdHdlZXQNCiAgdHdlZXQodHdlZXRfdGV4dCkNCmBgYA0K</div>
 
 
 

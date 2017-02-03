@@ -11,10 +11,10 @@ library(twitteR)
 ```
 
 I got the idea for this from Molly White's [Cyberprefixer](https://twitter.com/cyberprefixer), which scrapes news headlines and adds the prefix cyber- to random nouns. I stole bits of code from various places: 
-http://stackoverflow.com/questions/35772720/tagging-part-of-speech-for-a-particular-word-in-r
 http://rpubs.com/Ranthony__/web-scraping-activity-10
+https://www.r-bloggers.com/tutorial-how-to-set-up-a-twitter-bot-using-r/
 
-First I define a custom function to tag the parts of speech (i.e. work out which words are nouns)
+First I define a custom function to tag the parts of speech (i.e. work out which words are nouns). (nicked from http://stackoverflow.com/questions/35772720/tagging-part-of-speech-for-a-particular-word-in-r)
 
 ```{r tagPartsOfSpeech}
 tagPOS <-  function(x, ...) {
@@ -46,40 +46,21 @@ read_html() %>%
 html_nodes(".most-popular-page-list-item span") %>% 
 html_text()
 
-#scrape the page links corresponding to the article titles
-links<-bbc_most_read %>% 
-read_html() %>% 
-html_nodes(".most-popular-page-list-item a") %>% 
-html_attr("href")
-```
 
-Next we combine everything into a nice data frame. Most of this is actually unnecessary so I'll scrap it at some point.
-
-```{r}
-#complete the links by pasting the base url to the 
-#page url extension returned above
-links<-paste0(bbc_base_url,links)
-
-#extract the odd numbered elements in the list 
-#which are all number rankings
-rank<-most_read[seq(1,20,2)]
-
-#extract the even numbered elements in the list
-#which are all article titles 
+#extract the even numbered elements in the list which are all article titles 
 title<-most_read[seq(2,20,2)]
-
-#summarize our results in a data.frame
-data.frame(rank,title,links)
+title
 ```
 
 Now the fun part. We select a random headline, tag the parts of speech, pick out nouns that start with lowercase letters, prefix them with neuro-, then combine them back into a sentence.
 
-```{r }
+```{r createNewHeadline }
 selectedHeadline <- sample(1:10,1)
 oldHeadline <- title[selectedHeadline]
 tmpsplit <- unlist(strsplit(oldHeadline," "))
 taggedHeadline <- tagPOS(strsplit(gsub("[^[:alnum:] ]","",oldHeadline)," ")[[1]])
 nounIndex <- grep("NN",taggedHeadline)
+rle(diff(nounIndex))
 nouns <- tmpsplit[nounIndex]
 lowerIdx <- grep("(^[[:lower:]])",nouns)
 nouns <- nouns[lowerIdx]
@@ -95,9 +76,10 @@ paste(tmp,collapse = " ")
 ```
 
 Now to do the twittering...
+
 ```{r}
  # set up twitter api
-api_keys <- twitter_access <- read_csv("~/GitHub/neuroprefixer/twitter_access.csv")
+api_keys <- read_csv("~/GitHub/neuroprefixer/twitter_access.csv")
 setup_twitter_oauth(consumer_key = api_keys$consumer_key,
                       consumer_secret = api_keys$consumer_secret,
                       access_token = api_keys$access_token,
