@@ -69,7 +69,11 @@ newNouns <- paste("neuro",nouns,sep = "")
 
 tmp <- tmpsplit
 for (i in 1:length(lowerIdx)) {
-  tmp[nounIndex[i]] <- newNouns[i]
+  if (i == 1) {
+    tmp[nounIndex[i]] <- newNouns[i]
+  } else if (nounIndex[i] != (nounIndex[i-1]+1)) {
+    tmp[nounIndex[i]] <- newNouns[i]
+  }
 }
 #tmp
 paste(tmp,collapse = " ")
