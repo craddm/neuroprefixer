@@ -1,0 +1,89 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r loadPackages}
+library(rvest)
+library(openNLP)
+```
+
+```{r setURLs}
+#url to top 10 most read page 
+bbc_most_read<- "http://www.bbc.com/news/popular/read"
+
+#base url for bbc website
+#we'll need this later to complete our links
+bbc_base_url<-"http://www.bbc.com"
+```
+
+```{r}
+#scrape the ranking and article titles as a single list
+most_read<-bbc_most_read %>% 
+read_html() %>% 
+html_nodes(".most-popular-page-list-item span") %>% 
+html_text()
+
+#scrape the page links corresponding to the article titles
+links<-bbc_most_read %>% 
+read_html() %>% 
+html_nodes(".most-popular-page-list-item a") %>% 
+html_attr("href")
+```
+
+```{r}
+#complete the links by pasting the base url to the 
+#page url extension returned above
+links<-paste0(bbc_base_url,links)
+
+#extract the odd numbered elements in the list 
+#which are all number rankings
+rank<-most_read[seq(1,20,2)]
+
+#extract the even numbered elements in the list
+#which are all article titles 
+title<-most_read[seq(2,20,2)]
+
+#summarize our results in a data.frame
+data.frame(rank,title,links)
+```
+```{r}
+selectedHeadline <- sample(1:10,1)
+oldHeadline <- title[selectedHeadline]
+tmpsplit <- unlist(strsplit(oldHeadline," "))
+oldHeadline
+taggedHeadline <- tagPOS(oldHeadline)
+taggedHeadline
+nounIndex <- grep("NN",taggedHeadline)
+nounIndex
+nouns <- tmpsplit[nounIndex]
+lowerIdx <- grep("(^[[:lower:]])",nouns)
+nouns <- nouns[lowerIdx]
+nounIndex <- nounIndex[lowerIdx]
+#nounIndex[grep("(^[[:lower:]])",nouns)]
+newNouns <- paste("neuro",nouns,sep = "")
+#newNouns[lowerIdx]
+
+tmp <- tmpsplit
+for (i in 1:length(lowerIdx)) {
+  tmp[nounIndex[i]] <- newNouns[i]
+}
+#tmp
+paste(tmp,collapse = " ")
+
+
+```
+
+```{r}
+tagPOS <-  function(x, ...) {
+s <- as.String(x)
+word_token_annotator <- Maxent_Word_Token_Annotator()
+a2 <- Annotation(1L, "sentence", 1L, nchar(s))
+a2 <- annotate(s, word_token_annotator, a2)
+a3 <- annotate(s, Maxent_POS_Tag_Annotator(), a2)
+a3w <- a3[a3$type == "word"]
+POStags <- unlist(lapply(a3w$features, `[[`, "POS"))
+#POStagged <- paste(sprintf("%s/%s", s[a3w], POStags), collapse = " ")
+#list(POStagged = POStagged, POStags = POStags)
+POStags}
+```
