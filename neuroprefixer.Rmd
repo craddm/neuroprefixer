@@ -47,40 +47,58 @@ read_html() %>%
 html_nodes(".most-popular-page-list-item span") %>% 
 html_text()
 
-
 #extract the even numbered elements in the list which are all article titles 
-title<-most_read[seq(2,20,2)]
-title
+bbcHeadlines<-most_read[seq(2,20,2)]
+
+
+#scrape google's RSS feed for UK/world news
+google_rss <- read_xml("https://news.google.com/news?pz=1&cf=all&ned=uk&hl=en&output=rss") %>%
+  html_nodes("title") %>%
+  html_text()
+
+#remove the names of the newspapers/websites the headlines are scraped from, and the two useless titles at the start of the list of headlines
+googleHeadlines <-  gsub("( -).*","",google_rss[3:length(google_rss)])
+
+#combine them into a single set of headlines
+headlines <- c(googleHeadlines,bbcHeadlines)
+
+# This is for removing headlines with words that are likely to produce tasteless headlines; deactivated while I'm still manually vetting the generated headlines
+#bannedWords <- c("murder","killed","deadly")
+#headlines <- headlines[- grep(paste(bannedWords,collapse="|"),headlines)]
+
+headlines
 ```
 
 Now the fun part. We select a random headline, tag the parts of speech, pick out nouns that start with lowercase letters, prefix them with neuro-, then combine them back into a sentence.
 
 ```{r createNewHeadline }
-selectedHeadline <- sample(1:10,1)
-oldHeadline <- title[selectedHeadline]
+
+#pick out a random headline, split it into single words and then tag those words as nouns etc.
+selectedHeadline <- sample(1:length(headlines),1)
+oldHeadline <- headlines[selectedHeadline]
 tmpsplit <- unlist(strsplit(oldHeadline," "))
 taggedHeadline <- tagPOS(strsplit(gsub("[^[:alnum:] ]","",oldHeadline)," ")[[1]])
+
+#pick out the nouns, select only those that start with a lowercase letter, and add prefix them with neuro
 nounIndex <- grep("NN",taggedHeadline)
-rle(diff(nounIndex))
 nouns <- tmpsplit[nounIndex]
 lowerIdx <- grep("(^[[:lower:]])",nouns)
 nouns <- nouns[lowerIdx]
 nounIndex <- nounIndex[lowerIdx]
 newNouns <- paste("neuro",nouns,sep = "")
 
-tmp <- tmpsplit
+#replace the old nouns with the new neuronouns and put them back together to make a new headline
 for (i in 1:length(lowerIdx)) {
   if (i == 1) {
-    tmp[nounIndex[i]] <- newNouns[i]
+    tmpsplit[nounIndex[i]] <- newNouns[i]
   } else if (nounIndex[i] != (nounIndex[i-1]+1)) {
-    tmp[nounIndex[i]] <- newNouns[i]
+    tmpsplit[nounIndex[i]] <- newNouns[i]
   }
 }
-#tmp
-paste(tmp,collapse = " ")
+paste(tmpsplit,collapse = " ")
 ```
 
-Now to do the twittering...
+Now to do the tweeting...
 
 ```{r}
  # set up twitter api
@@ -93,6 +111,8 @@ time <- Sys.time()
   
 # create tweet
 tweet_text <- paste(tmp,collapse = " ")
-  # send tweet
-  tweet(tweet_text)
+# send tweet
+tweet(tweet_text)
+
+#will add a log of tweets soon, eventually planning to automate tweeting...
 ```
