@@ -62,9 +62,9 @@ googleHeadlines <-  gsub("( -).*","",google_rss[3:length(google_rss)])
 #combine them into a single set of headlines
 headlines <- c(googleHeadlines,bbcHeadlines)
 
-# This is for removing headlines with words that are likely to produce tasteless headlines; deactivated while I'm still manually vetting the generated headlines
-#bannedWords <- c("murder","killed","deadly")
-#headlines <- headlines[- grep(paste(bannedWords,collapse="|"),headlines)]
+# This is for removing headlines with words that are likely to produce tasteless headlines; not complete yet, still manually validating headlines
+bannedWords <- c("murder","kill(er|ing|ed|)?s","dea(th|d|dly)","genocide","injur(e|i?es|ed|y)","die(s|d)")
+headlines <- headlines[grep(paste(bannedWords,collapse="|"),headlines,invert = TRUE)]
 
 headlines
 ```
@@ -96,6 +96,7 @@ for (i in 1:length(lowerIdx)) {
   }
 }
 paste(tmpsplit,collapse = " ")
+nchar(paste(tmpsplit,collapse = " "))
 ```
 
 Now to do the tweeting...
@@ -110,7 +111,7 @@ setup_twitter_oauth(consumer_key = api_keys$consumer_key,
 time <- Sys.time()
   
 # create tweet
-tweet_text <- paste(tmp,collapse = " ")
+tweet_text <- paste(tmpsplit,collapse = " ")
 # send tweet
 tweet(tweet_text)
 
