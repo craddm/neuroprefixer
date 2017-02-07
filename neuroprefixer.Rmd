@@ -9,6 +9,7 @@ library(openNLP)
 library(NLP)
 library(twitteR)
 library(readr)
+source("offensive.R")
 ```
 
 I got the idea for this from Molly White's [Cyberprefixer](https://twitter.com/cyberprefixer), which scrapes news headlines and adds the prefix cyber- to random nouns. I stole bits of code from various places: 
@@ -19,53 +20,44 @@ First I define a custom function to tag the parts of speech (i.e. work out which
 
 ```{r tagPartsOfSpeech}
 tagPOS <-  function(x, ...) {
-s <- as.String(x)
-word_token_annotator <- Maxent_Word_Token_Annotator()
-a2 <- Annotation(1L, "sentence", 1L, nchar(s))
-a2 <- annotate(s, word_token_annotator, a2)
-a3 <- annotate(s, Maxent_POS_Tag_Annotator(), a2)
-a3w <- a3[a3$type == "word"]
-POStags <- unlist(lapply(a3w$features, `[[`, "POS"))
-#POStagged <- paste(sprintf("%s/%s", s[a3w], POStags), collapse = " ")
-#list(POStagged = POStagged, POStags = POStags)
-POStags}
+  s <- as.String(x)
+  word_token_annotator <- Maxent_Word_Token_Annotator()
+  a2 <- Annotation(1L, "sentence", 1L, nchar(s))
+  a2 <- annotate(s, word_token_annotator, a2)
+  a3 <- annotate(s, Maxent_POS_Tag_Annotator(), a2)
+  a3w <- a3[a3$type == "word"]
+  POStags <- unlist(lapply(a3w$features, `[[`, "POS"))
+  POStags}
 ```
 
-Next we do the actual scraping. Here I'm just taking the BBC's most read headlines.
+Next we do the actual scraping. Here I get the BBC's Most Read headlines and the latest news from Google UK, then remove headlines which contain one of a list of potentially offensive words. This is to avoid making tasteless headlines.
 
 ```{r setURLs}
-#url to top 10 most read page 
-bbc_most_read<- "http://www.bbc.com/news/popular/read"
+#URL for the Most Read section of BBC news
+bbcMostRead <- "http://www.bbc.com/news/popular/read"
 
-#base url for bbc website
-#we'll need this later to complete our links
-bbc_base_url<-"http://www.bbc.com"
+#Scrape the headlines
+mostRead <- bbcMostRead %>% 
+  read_html() %>% 
+  html_nodes(".most-popular-page-list-item span") %>% 
+  html_text()
 
-#scrape the ranking and article titles as a single list
-most_read<-bbc_most_read %>% 
-read_html() %>% 
-html_nodes(".most-popular-page-list-item span") %>% 
-html_text()
+#Extract the article titles (the even elements of the list)
+bbcHeadlines <-mostRead[seq(2,20,2)]
 
-#extract the even numbered elements in the list which are all article titles 
-bbcHeadlines<-most_read[seq(2,20,2)]
-
-
-#scrape google's RSS feed for UK/world news
-google_rss <- read_xml("https://news.google.com/news?pz=1&cf=all&ned=uk&hl=en&output=rss") %>%
+#Scrape google's RSS feed for UK/world news
+googleRSS <- read_xml("https://news.google.com/news?pz=1&cf=all&ned=uk&hl=en&output=rss") %>%
   html_nodes("title") %>%
   html_text()
 
-#remove the names of the newspapers/websites the headlines are scraped from, and the two useless titles at the start of the list of headlines
-googleHeadlines <-  gsub("( -).*","",google_rss[3:length(google_rss)])
+#Remove the names of the newspapers/websites the headlines are scraped from, and the two useless titles at the start of the list of headlines
+googleHeadlines <-  gsub("( -).*","",googleRSS[3:length(googleRSS)])
 
-#combine them into a single set of headlines
+#Combine them into a single set of headlines
 headlines <- c(googleHeadlines,bbcHeadlines)
 
-# This is for removing headlines with words that are likely to produce tasteless headlines; not complete yet, still manually validating headlines
-bannedWords <- c("murder","kill(er|ing|ed|)?s","dea(th|d|dly)","genocide","injur(e|i?es|ed|y)","die(s|d)")
+#Remove 
 headlines <- headlines[grep(paste(bannedWords,collapse="|"),headlines,invert = TRUE)]
-
 headlines
 ```
 
@@ -74,20 +66,17 @@ Now the fun part. We select a random headline, tag the parts of speech, pick out
 ```{r createNewHeadline }
 
 #pick out a random headline, split it into single words and then tag those words as nouns etc.
-selectedHeadline <- sample(1:length(headlines),1)
-oldHeadline <- headlines[selectedHeadline]
-tmpsplit <- unlist(strsplit(oldHeadline," "))
-taggedHeadline <- tagPOS(strsplit(gsub("[^[:alnum:] ]","",oldHeadline)," ")[[1]])
+selectedHeadline <- headlines[sample(1:length(headlines),1)]
+tmpsplit <- unlist(strsplit(selectedHeadline," "))
+taggedHeadline <- tagPOS(strsplit(gsub("[^[:alnum:] ]","",selectedHeadline)," ")[[1]])
 
 #pick out the nouns, select only those that start with a lowercase letter, and add prefix them with neuro
 nounIndex <- grep("NN",taggedHeadline)
-nouns <- tmpsplit[nounIndex]
-lowerIdx <- grep("(^[[:lower:]])",nouns)
-nouns <- nouns[lowerIdx]
+lowerIdx <- grep("(^[[:lower:]])",tmpsplit[nounIndex])
 nounIndex <- nounIndex[lowerIdx]
-newNouns <- paste("neuro",nouns,sep = "")
+newNouns <- paste("neuro",tmpsplit[nounIndex],sep = "")
 
-#replace the old nouns with the new neuronouns and put them back together to make a new headline
+#Replace the old nouns with the new neuronouns and put them back together to make a new headline. This also checks to make sure two consecutive words aren't replaced.
 for (i in 1:length(lowerIdx)) {
   if (i == 1) {
     tmpsplit[nounIndex[i]] <- newNouns[i]

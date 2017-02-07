@@ -1,0 +1,1 @@
+bannedWords <- c("hang(ed)","murder","kill(er|ing|ed|)?","dea(th|d|dly)","genocide","injur(e|i?es|ed|y)","die(s|d)","cancer")
