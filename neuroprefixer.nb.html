@@ -174,13 +174,28 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydmVzdClcbmxpYnJhcnkob3Blbk5MUClcbmxpYnJhcnkoTkxQKVxubGlicmFyeSh0d2l0dGVSKVxubGlicmFyeShyZWFkcilcbnNvdXJjZShcIm9mZmVuc2l2ZS5SXCIpXG5gYGAifQ== -->
-<pre class="r"><code>library(rvest)
-library(openNLP)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydmVzdClcbmBgYCJ9 -->
+<pre class="r"><code>library(rvest)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiB4bWwyXG4ifQ== -->
+<pre><code>Loading required package: xml2</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShvcGVuTkxQKVxubGlicmFyeShOTFApXG5saWJyYXJ5KHR3aXR0ZVIpXG5saWJyYXJ5KHJlYWRyKVxuYGBgIn0= -->
+<pre class="r"><code>library(openNLP)
 library(NLP)
 library(twitteR)
-library(readr)
-source(&quot;offensive.R&quot;)</code></pre>
+library(readr)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog46S847ixcmVhZHLjpLzjuLJcblxuVGhlIGZvbGxvd2luZyBvYmplY3QgaXMgbWFza2VkIGZyb20g46S847ixcGFja2FnZTpydmVzdOOkvOO4sjpcblxuICAgIGd1ZXNzX2VuY29kaW5nXG4ifQ== -->
+<pre><code>
+Attaching package: 㤼㸱readr㤼㸲
+
+The following object is masked from 㤼㸱package:rvest㤼㸲:
+
+    guess_encoding</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwib2ZmZW5zaXZlLlJcIilcbmBgYCJ9 -->
+<pre class="r"><code>source(&quot;offensive.R&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -228,26 +243,25 @@ headlines &lt;- c(googleHeadlines,bbcHeadlines)
 headlines &lt;- headlines[grep(paste(bannedWords,collapse=&quot;|&quot;),headlines,invert = TRUE)]
 headlines</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIklGUyB3YXJucyBvZiBzdGVlcCBjdXRzIGFuZCB0YXggcmlzZXMgdG8gZmlsbCDCozQwYm4gYmxhY2sgaG9sZVwiICAgICAgXG4gWzJdIFwiSm9obiBCZXJjb3cgZG9lcyBub3Qgc3BlYWsgZm9yIGdvdmVybm1lbnQgb24gVHJ1bXAsIHNheXMgbWluaXN0ZXJcIiAgIFxuIFszXSBcIidNYXNzIGhhbmdpbmdzIG9mIDEzMDAwJ1wiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiBbNF0gXCJOaWNvbGFzIFNhcmtvenk6IEZyZW5jaCBleC1wcmVzaWRlbnQgb3JkZXJlZCB0byBzdGFuZCB0cmlhbFwiICAgICAgICAgXG4gWzVdIFwiVHJ1bXAgc2F5cyB0ZXJyb3IgYXR0YWNrcyAndW5kZXItcmVwb3J0ZWQnOiBJcyB0aGF0IHRydWU/XCIgICAgICAgICAgIFxuIFs2XSBcIkFsZGkgb3ZlcnRha2VzIENvLW9wIHRvIGJlY29tZSBVSydzIGZpZnRoIGxhcmdlc3QgZ3JvY2VyXCIgICAgICAgICAgICBcbiBbN10gXCJVSyBob3VzZSBwcmljZSBncm93dGggJ3RvIHNsb3cgaW4gMjAxNydcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzhdIFwiVHJ1bXAncyBkZWNpc2lvbnMsIG9wZXJhdGlvbiBEZWNpc2l2ZSBTdG9ybSB0byBlbmQgbXVsbGFocycgZHJlYW1cIiAgIFxuIFs5XSBcIkdPTERNQU4gU0FDSFM6IEhlcmUncyBob3cgVHJ1bXAgd2lsbCBlc2NhbGF0ZSBhIHRyYWRlIHdhciB3aXRoIENoaW5hXCJcblsxMF0gXCJDaGluZXNlIGp1ZGdlIHNsYW1zIFRydW1wIGFzIGEgJ3B1YmxpYyBlbmVteSBvZiB0aGUgcnVsZSBvZiBsYXcnXCIgICAgXG5bMTFdIFwiUmlvIEZlcmRpbmFuZCAneWV0IHRvIGdyaWV2ZSBwcm9wZXJseScgZm9yIGxhdGUgd2lmZVwiICAgICAgICAgICAgICAgIFxuWzEyXSBcIlRoZSB2aWxsYWdlIGFpbWluZyB0byBjcmVhdGUgYSB3aGl0ZSB1dG9waWFcIiAgICAgICAgICAgICAgICAgICAgICAgICBcblsxM10gXCJGbGlnaHQgYXR0ZW5kYW50IHNoYXJlcyBzdG9yeSBvZiBzYXZpbmcgdHJhZmZpY2tpbmcgdmljdGltXCIgICAgICAgICAgXG5bMTRdIFwiU3BlYWtlciBKb2huIEJlcmNvdyBjcml0aWNpc2VkIG92ZXIgRG9uYWxkIFRydW1wIGNvbW1lbnRzXCIgICAgICAgICAgIFxuWzE1XSBcIkhvdyB0byBvd24gYSBob21lIGJ5IHRoZSBhZ2Ugb2YgMjVcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcblsxNl0gXCJHZXJtYW55J3MgbW9zdCBoYXRlZCBjbHViIFJCIExlaXB6aWcgaGl0IGJ5IHN0b25lcyBhbmQgaW5zdWx0c1wiICAgICAgXG5bMTddIFwiS3lyYSBQb2g6IFRoZSAxNC15ZWFyLW9sZCBnaXJsIHdobydzIHRoZSAnZmFzdGVzdCBmbHllcidcIiAgICAgICAgICAgIFxuWzE4XSBcIkhvdXNpbmcgbWFya2V0IGJyb2tlbiwgbWluaXN0ZXJzIHNheSBhaGVhZCBvZiBXaGl0ZSBQYXBlclwiICAgICAgICAgICBcblsxOV0gXCJBbGRpIG92ZXJ0YWtlcyBDby1vcCB0byBiZWNvbWUgVUsncyBmaWZ0aCBsYXJnZXN0IGdyb2NlclwiICAgICAgICAgICAgXG4ifQ== -->
-<pre><code> [1] &quot;IFS warns of steep cuts and tax rises to fill £40bn black hole&quot;      
- [2] &quot;John Bercow does not speak for government on Trump, says minister&quot;   
- [3] &quot;'Mass hangings of 13000'&quot;                                            
- [4] &quot;Nicolas Sarkozy: French ex-president ordered to stand trial&quot;         
- [5] &quot;Trump says terror attacks 'under-reported': Is that true?&quot;           
- [6] &quot;Aldi overtakes Co-op to become UK's fifth largest grocer&quot;            
- [7] &quot;UK house price growth 'to slow in 2017'&quot;                             
- [8] &quot;Trump's decisions, operation Decisive Storm to end mullahs' dream&quot;   
- [9] &quot;GOLDMAN SACHS: Here's how Trump will escalate a trade war with China&quot;
-[10] &quot;Chinese judge slams Trump as a 'public enemy of the rule of law'&quot;    
-[11] &quot;Rio Ferdinand 'yet to grieve properly' for late wife&quot;                
-[12] &quot;The village aiming to create a white utopia&quot;                         
-[13] &quot;Flight attendant shares story of saving trafficking victim&quot;          
-[14] &quot;Speaker John Bercow criticised over Donald Trump comments&quot;           
-[15] &quot;How to own a home by the age of 25&quot;                                  
-[16] &quot;Germany's most hated club RB Leipzig hit by stones and insults&quot;      
-[17] &quot;Kyra Poh: The 14-year-old girl who's the 'fastest flyer'&quot;            
-[18] &quot;Housing market broken, ministers say ahead of White Paper&quot;           
-[19] &quot;Aldi overtakes Co-op to become UK's fifth largest grocer&quot;            </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIkFydGljbGUgNTAgYmlsbDogTWF5IHNlZXMgb2ZmIGF0dGVtcHQgdG8gZ2l2ZSBNUHMgdmV0byBvdmVyIEJyZXhpdCBkZWFsXCIgICAgICAgICAgIFxuIFsyXSBcIlBhcmVudHMgYWxyZWFkeSBmYWNlIHRvdWdoICdzY2hvb2wgY2hvaWNlJyDigJQgdGhleSB3YW50IHNpbXBsaWNpdHlcIiAgICAgICAgICAgICAgICAgXG4gWzNdIFwiUkFGIFR5cGhvb24gamV0cyBlc2NvcnQgUGFraXN0YW4gSW50ZXJuYXRpb25hbCBBaXJsaW5lcyBmbGlnaHQgdG8gU3RhbnN0ZWQgQWlycG9ydFwiXG4gWzRdIFwiVHJ1bXAgSGFzIEZhbnMgaW4gSXNyYWVsIGZvciBUYWtpbmcgb24gVGhpcyBWZXJ5IFRvdWdoIElzc3VlXCIgICAgICAgICAgICAgICAgICAgICAgXG4gWzVdIFwiUHV0aW4gc2lnbnMgbGF3IHJlZHVjaW5nIHB1bmlzaG1lbnQgZm9yIGRvbWVzdGljIGJhdHRlcnlcIiAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzZdIFwiQ28tb3AgR3JvdXAgY2hpZWYgZXhlY3V0aXZlIFJpY2hhcmQgUGVubnljb29rIHN0ZXBzIGRvd25cIiAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzddIFwiR3JlZWNlJ3MgZGVidCBjb3N0cyByaXNlIHNoYXJwbHkgYXMgd29ycmllcyBncm93IG92ZXIgSU1GIHJvbGVcIiAgICAgICAgICAgICAgICAgICAgXG4gWzhdIFwiU3Ryb25nIGVhcnRocXVha2Ugc3RyaWtlcyBvZmYgc291dGh3ZXN0ZXJuIFBha2lzdGFuXCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzldIFwiRG9uYWxkIFRydW1wIGZhY2VzIGRheSBvZiBzdHJ1Z2dsZXMgb3ZlciBCZXRzeSBEZVZvcyBhbmQgdHJhdmVsIGJhblwiICAgICAgICAgICAgICAgXG5bMTBdIFwiQXMgSXJhbidzIEtoYW1lbmVpIGFuZCBUcnVtcCBzcGFyLCBzcG9ydHMgYW5kIGFjYWRlbWljIHRpZXMgZmVlbCBibG93YmFja1wiICAgICAgICAgXG5bMTFdIFwiQnJleGl0IHJlYmVsbGlvbiBhdm9pZGVkIGFmdGVyICdtZWFuaW5nZnVsIHZvdGUnIG9mZmVyXCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMTJdIFwiUkFGIFR5cGhvb24gamV0cyBlc2NvcnQgUGFraXN0YW4gcGxhbmUgdG8gU3RhbnN0ZWRcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMTNdIFwiU3RyaXBwZXJzIHdobyBibGFja21haWxlZCBEYW5ueSBDaXByaWFuaSBzZW50ZW5jZWRcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMTRdIFwiT2JhbWEgY2hpbGxzIHdpdGggQnJhbnNvbjogV2hhdCBhYm91dCBvdGhlciBwb3N0LXByZXNpZGVuY3kgd2luZCBkb3ducz9cIiAgICAgICAgICAgXG5bMTVdIFwiRWR1Y2F0aW9uIG5vbWluZWUgQmV0c3kgRGVWb3Mgd2lucyBTZW5hdGUgY29uZmlybWF0aW9uIHZvdGVcIiAgICAgICAgICAgICAgICAgICAgICAgXG5bMTZdIFwiU3BvcnRzIElsbHVzdHJhdGVkOiBDaHJpc3RpZSBCcmlua2xleSBwcmFpc2VkIGZvciBwb3NpbmcgYWdlZCA2M1wiICAgICAgICAgICAgICAgICAgXG5bMTddIFwiSG93IHRvIG93biBhIGhvbWUgYnkgdGhlIGFnZSBvZiAyNVwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMThdIFwiQWNjdXNlZCBJYW4gU3Rld2FydCBzYXlzICduZXZlciBzdG9wcGVkIGxvdmluZycgYXV0aG9yIEhlbGVuIEJhaWxleVwiICAgICAgICAgICAgICAgXG4ifQ== -->
+<pre><code> [1] &quot;Article 50 bill: May sees off attempt to give MPs veto over Brexit deal&quot;           
+ [2] &quot;Parents already face tough 'school choice' — they want simplicity&quot;                 
+ [3] &quot;RAF Typhoon jets escort Pakistan International Airlines flight to Stansted Airport&quot;
+ [4] &quot;Trump Has Fans in Israel for Taking on This Very Tough Issue&quot;                      
+ [5] &quot;Putin signs law reducing punishment for domestic battery&quot;                          
+ [6] &quot;Co-op Group chief executive Richard Pennycook steps down&quot;                          
+ [7] &quot;Greece's debt costs rise sharply as worries grow over IMF role&quot;                    
+ [8] &quot;Strong earthquake strikes off southwestern Pakistan&quot;                               
+ [9] &quot;Donald Trump faces day of struggles over Betsy DeVos and travel ban&quot;               
+[10] &quot;As Iran's Khamenei and Trump spar, sports and academic ties feel blowback&quot;         
+[11] &quot;Brexit rebellion avoided after 'meaningful vote' offer&quot;                            
+[12] &quot;RAF Typhoon jets escort Pakistan plane to Stansted&quot;                                
+[13] &quot;Strippers who blackmailed Danny Cipriani sentenced&quot;                                
+[14] &quot;Obama chills with Branson: What about other post-presidency wind downs?&quot;           
+[15] &quot;Education nominee Betsy DeVos wins Senate confirmation vote&quot;                       
+[16] &quot;Sports Illustrated: Christie Brinkley praised for posing aged 63&quot;                  
+[17] &quot;How to own a home by the age of 25&quot;                                                
+[18] &quot;Accused Ian Stewart says 'never stopped loving' author Helen Bailey&quot;               </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -274,14 +288,14 @@ for (i in 1:length(lowerIdx)) {
 }
 paste(tmpsplit,collapse = &quot; &quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVUsgbmV1cm9ob3VzZSBwcmljZSBncm93dGggJ3RvIHNsb3cgaW4gMjAxNydcIlxuIn0= -->
-<pre><code>[1] &quot;UK neurohouse price growth 'to slow in 2017'&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQXJ0aWNsZSA1MCBuZXVyb2JpbGw6IE1heSBzZWVzIG9mZiBuZXVyb2F0dGVtcHQgdG8gZ2l2ZSBNUHMgbmV1cm92ZXRvIG92ZXIgQnJleGl0IG5ldXJvZGVhbFwiXG4ifQ== -->
+<pre><code>[1] &quot;Article 50 neurobill: May sees off neuroattempt to give MPs neuroveto over Brexit neurodeal&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmNoYXIocGFzdGUodG1wc3BsaXQsY29sbGFwc2UgPSBcIiBcIikpXG5gYGAifQ== -->
 <pre class="r"><code>nchar(paste(tmpsplit,collapse = &quot; &quot;))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDQ0XG4ifQ== -->
-<pre><code>[1] 44</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDkxXG4ifQ== -->
+<pre><code>[1] 91</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -318,8 +332,8 @@ tweet_text &lt;- paste(tmpsplit,collapse = &quot; &quot;)
 # send tweet
 tweet(tweet_text)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTmV1cm9wcmVmaXhlcjogQWxkaSBiZWNvbWVzIEJyaXRhaW4ncyBmaWZ0aCBsYXJnZXN0IG5ldXJvZ3JvY2VyXCJcbiJ9 -->
-<pre><code>[1] &quot;Neuroprefixer: Aldi becomes Britain's fifth largest neurogrocer&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTmV1cm9wcmVmaXhlcjogQXJ0aWNsZSA1MCBuZXVyb2JpbGw6IE1heSBzZWVzIG9mZiBuZXVyb2F0dGVtcHQgdG8gZ2l2ZSBNUHMgbmV1cm92ZXRvIG92ZXIgQnJleGl0IG5ldXJvZGVhbFwiXG4ifQ== -->
+<pre><code>[1] &quot;Neuroprefixer: Article 50 neurobill: May sees off neuroattempt to give MPs neuroveto over Brexit neurodeal&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3dpbGwgYWRkIGEgbG9nIG9mIHR3ZWV0cyBzb29uLCBldmVudHVhbGx5IHBsYW5uaW5nIHRvIGF1dG9tYXRlIHR3ZWV0aW5nLi4uXG5gYGAifQ== -->
 <pre class="r"><code>#will add a log of tweets soon, eventually planning to automate tweeting...</code></pre>
