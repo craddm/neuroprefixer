@@ -203,18 +203,16 @@ The following object is masked from 㤼㸱package:rvest㤼㸲:
 <p>First I define a custom function to tag the parts of speech (i.e. work out which words are nouns). (nicked from <a href="http://stackoverflow.com/questions/35772720/tagging-part-of-speech-for-a-particular-word-in-r" class="uri">http://stackoverflow.com/questions/35772720/tagging-part-of-speech-for-a-particular-word-in-r</a>)</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFnUE9TIDwtICBmdW5jdGlvbih4LCAuLi4pIHtcbnMgPC0gYXMuU3RyaW5nKHgpXG53b3JkX3Rva2VuX2Fubm90YXRvciA8LSBNYXhlbnRfV29yZF9Ub2tlbl9Bbm5vdGF0b3IoKVxuYTIgPC0gQW5ub3RhdGlvbigxTCwgXCJzZW50ZW5jZVwiLCAxTCwgbmNoYXIocykpXG5hMiA8LSBhbm5vdGF0ZShzLCB3b3JkX3Rva2VuX2Fubm90YXRvciwgYTIpXG5hMyA8LSBhbm5vdGF0ZShzLCBNYXhlbnRfUE9TX1RhZ19Bbm5vdGF0b3IoKSwgYTIpXG5hM3cgPC0gYTNbYTMkdHlwZSA9PSBcIndvcmRcIl1cblBPU3RhZ3MgPC0gdW5saXN0KGxhcHBseShhM3ckZmVhdHVyZXMsIGBbW2AsIFwiUE9TXCIpKVxuI1BPU3RhZ2dlZCA8LSBwYXN0ZShzcHJpbnRmKFwiJXMvJXNcIiwgc1thM3ddLCBQT1N0YWdzKSwgY29sbGFwc2UgPSBcIiBcIilcbiNsaXN0KFBPU3RhZ2dlZCA9IFBPU3RhZ2dlZCwgUE9TdGFncyA9IFBPU3RhZ3MpXG5QT1N0YWdzfVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFnUE9TIDwtICBmdW5jdGlvbih4LCAuLi4pIHtcbiAgcyA8LSBhcy5TdHJpbmcoeClcbiAgd29yZF90b2tlbl9hbm5vdGF0b3IgPC0gTWF4ZW50X1dvcmRfVG9rZW5fQW5ub3RhdG9yKClcbiAgYTIgPC0gQW5ub3RhdGlvbigxTCwgXCJzZW50ZW5jZVwiLCAxTCwgbmNoYXIocykpXG4gIGEyIDwtIGFubm90YXRlKHMsIHdvcmRfdG9rZW5fYW5ub3RhdG9yLCBhMilcbiAgYTMgPC0gYW5ub3RhdGUocywgTWF4ZW50X1BPU19UYWdfQW5ub3RhdG9yKCksIGEyKVxuICBhM3cgPC0gYTNbYTMkdHlwZSA9PSBcIndvcmRcIl1cbiAgUE9TdGFncyA8LSB1bmxpc3QobGFwcGx5KGEzdyRmZWF0dXJlcywgYFtbYCwgXCJQT1NcIikpXG4gIFBPU3RhZ3N9XG5gYGAifQ== -->
 <pre class="r"><code>tagPOS &lt;-  function(x, ...) {
-s &lt;- as.String(x)
-word_token_annotator &lt;- Maxent_Word_Token_Annotator()
-a2 &lt;- Annotation(1L, &quot;sentence&quot;, 1L, nchar(s))
-a2 &lt;- annotate(s, word_token_annotator, a2)
-a3 &lt;- annotate(s, Maxent_POS_Tag_Annotator(), a2)
-a3w &lt;- a3[a3$type == &quot;word&quot;]
-POStags &lt;- unlist(lapply(a3w$features, `[[`, &quot;POS&quot;))
-#POStagged &lt;- paste(sprintf(&quot;%s/%s&quot;, s[a3w], POStags), collapse = &quot; &quot;)
-#list(POStagged = POStagged, POStags = POStags)
-POStags}</code></pre>
+  s &lt;- as.String(x)
+  word_token_annotator &lt;- Maxent_Word_Token_Annotator()
+  a2 &lt;- Annotation(1L, &quot;sentence&quot;, 1L, nchar(s))
+  a2 &lt;- annotate(s, word_token_annotator, a2)
+  a3 &lt;- annotate(s, Maxent_POS_Tag_Annotator(), a2)
+  a3w &lt;- a3[a3$type == &quot;word&quot;]
+  POStags &lt;- unlist(lapply(a3w$features, `[[`, &quot;POS&quot;))
+  POStags}</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -243,25 +241,25 @@ headlines &lt;- c(googleHeadlines,bbcHeadlines)
 headlines &lt;- headlines[grep(paste(bannedWords,collapse=&quot;|&quot;),headlines,invert = TRUE)]
 headlines</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIkFydGljbGUgNTAgYmlsbDogTWF5IHNlZXMgb2ZmIGF0dGVtcHQgdG8gZ2l2ZSBNUHMgdmV0byBvdmVyIEJyZXhpdCBkZWFsXCIgICAgICAgICAgIFxuIFsyXSBcIlBhcmVudHMgYWxyZWFkeSBmYWNlIHRvdWdoICdzY2hvb2wgY2hvaWNlJyDigJQgdGhleSB3YW50IHNpbXBsaWNpdHlcIiAgICAgICAgICAgICAgICAgXG4gWzNdIFwiUkFGIFR5cGhvb24gamV0cyBlc2NvcnQgUGFraXN0YW4gSW50ZXJuYXRpb25hbCBBaXJsaW5lcyBmbGlnaHQgdG8gU3RhbnN0ZWQgQWlycG9ydFwiXG4gWzRdIFwiVHJ1bXAgSGFzIEZhbnMgaW4gSXNyYWVsIGZvciBUYWtpbmcgb24gVGhpcyBWZXJ5IFRvdWdoIElzc3VlXCIgICAgICAgICAgICAgICAgICAgICAgXG4gWzVdIFwiUHV0aW4gc2lnbnMgbGF3IHJlZHVjaW5nIHB1bmlzaG1lbnQgZm9yIGRvbWVzdGljIGJhdHRlcnlcIiAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzZdIFwiQ28tb3AgR3JvdXAgY2hpZWYgZXhlY3V0aXZlIFJpY2hhcmQgUGVubnljb29rIHN0ZXBzIGRvd25cIiAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzddIFwiR3JlZWNlJ3MgZGVidCBjb3N0cyByaXNlIHNoYXJwbHkgYXMgd29ycmllcyBncm93IG92ZXIgSU1GIHJvbGVcIiAgICAgICAgICAgICAgICAgICAgXG4gWzhdIFwiU3Ryb25nIGVhcnRocXVha2Ugc3RyaWtlcyBvZmYgc291dGh3ZXN0ZXJuIFBha2lzdGFuXCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzldIFwiRG9uYWxkIFRydW1wIGZhY2VzIGRheSBvZiBzdHJ1Z2dsZXMgb3ZlciBCZXRzeSBEZVZvcyBhbmQgdHJhdmVsIGJhblwiICAgICAgICAgICAgICAgXG5bMTBdIFwiQXMgSXJhbidzIEtoYW1lbmVpIGFuZCBUcnVtcCBzcGFyLCBzcG9ydHMgYW5kIGFjYWRlbWljIHRpZXMgZmVlbCBibG93YmFja1wiICAgICAgICAgXG5bMTFdIFwiQnJleGl0IHJlYmVsbGlvbiBhdm9pZGVkIGFmdGVyICdtZWFuaW5nZnVsIHZvdGUnIG9mZmVyXCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMTJdIFwiUkFGIFR5cGhvb24gamV0cyBlc2NvcnQgUGFraXN0YW4gcGxhbmUgdG8gU3RhbnN0ZWRcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMTNdIFwiU3RyaXBwZXJzIHdobyBibGFja21haWxlZCBEYW5ueSBDaXByaWFuaSBzZW50ZW5jZWRcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMTRdIFwiT2JhbWEgY2hpbGxzIHdpdGggQnJhbnNvbjogV2hhdCBhYm91dCBvdGhlciBwb3N0LXByZXNpZGVuY3kgd2luZCBkb3ducz9cIiAgICAgICAgICAgXG5bMTVdIFwiRWR1Y2F0aW9uIG5vbWluZWUgQmV0c3kgRGVWb3Mgd2lucyBTZW5hdGUgY29uZmlybWF0aW9uIHZvdGVcIiAgICAgICAgICAgICAgICAgICAgICAgXG5bMTZdIFwiU3BvcnRzIElsbHVzdHJhdGVkOiBDaHJpc3RpZSBCcmlua2xleSBwcmFpc2VkIGZvciBwb3NpbmcgYWdlZCA2M1wiICAgICAgICAgICAgICAgICAgXG5bMTddIFwiSG93IHRvIG93biBhIGhvbWUgYnkgdGhlIGFnZSBvZiAyNVwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMThdIFwiQWNjdXNlZCBJYW4gU3Rld2FydCBzYXlzICduZXZlciBzdG9wcGVkIGxvdmluZycgYXV0aG9yIEhlbGVuIEJhaWxleVwiICAgICAgICAgICAgICAgXG4ifQ== -->
-<pre><code> [1] &quot;Article 50 bill: May sees off attempt to give MPs veto over Brexit deal&quot;           
- [2] &quot;Parents already face tough 'school choice' — they want simplicity&quot;                 
- [3] &quot;RAF Typhoon jets escort Pakistan International Airlines flight to Stansted Airport&quot;
- [4] &quot;Trump Has Fans in Israel for Taking on This Very Tough Issue&quot;                      
- [5] &quot;Putin signs law reducing punishment for domestic battery&quot;                          
- [6] &quot;Co-op Group chief executive Richard Pennycook steps down&quot;                          
- [7] &quot;Greece's debt costs rise sharply as worries grow over IMF role&quot;                    
- [8] &quot;Strong earthquake strikes off southwestern Pakistan&quot;                               
- [9] &quot;Donald Trump faces day of struggles over Betsy DeVos and travel ban&quot;               
-[10] &quot;As Iran's Khamenei and Trump spar, sports and academic ties feel blowback&quot;         
-[11] &quot;Brexit rebellion avoided after 'meaningful vote' offer&quot;                            
-[12] &quot;RAF Typhoon jets escort Pakistan plane to Stansted&quot;                                
-[13] &quot;Strippers who blackmailed Danny Cipriani sentenced&quot;                                
-[14] &quot;Obama chills with Branson: What about other post-presidency wind downs?&quot;           
-[15] &quot;Education nominee Betsy DeVos wins Senate confirmation vote&quot;                       
-[16] &quot;Sports Illustrated: Christie Brinkley praised for posing aged 63&quot;                  
-[17] &quot;How to own a home by the age of 25&quot;                                                
-[18] &quot;Accused Ian Stewart says 'never stopped loving' author Helen Bailey&quot;               </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIkplcmVteSBDb3JieW4gb24gQnJleGl0OiBMYWJvdXIgd2lsbCBwdXNoIGZvciBjb25jZXNzaW9uc1wiICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzJdIFwiRnJlbmNoIG51Y2xlYXIgcG93ZXIgcGxhbnQgZXhwbG9zaW9uOiBObyByYWRpb2FjdGl2ZSBsZWFrIGFmdGVyIGJsYXN0IGluIEZsYW1hbnZpbGxlXCJcbiBbM10gXCJTY2hvb2wgYnVzIGNhcnJ5aW5nIDQ0IHB1cGlscyBvdmVydHVybnNcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFs0XSBcIkVkZGllIEpvbmVzIHBpY2tzIEVuZ2xhbmQgdGVhbSB0byBmYWNlIFdhbGVzIGluIFNpeCBOYXRpb25zXCIgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzVdIFwiQSZFIHdhaXRzIGZvciBKYW51YXJ5ICd3b3JzdCBldmVyJywgbGVha2VkIGRhdGEgc3VnZ2VzdHNcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiBbNl0gXCJUcnVtcCdzIEZpcnN0IDEwMCBEYXlzOiBQcmVzaWRlbnQgc2VlcyBiaWFzIGZyb20ganVkZ2VzIOKAlCBhbmQgTm9yZHN0cm9tXCIgICAgICAgICAgICAgXG4gWzddIFwiQW5nZXIgYXMgbWluaXN0ZXJzIHNodXQgJ0R1YnMnIHNjaGVtZSB0byByZWhvdXNlIGNoaWxkIHJlZnVnZWVzXCIgICAgICAgICAgICAgICAgICAgICBcbiBbOF0gXCJDaGluYSBwcmFpc2VzIFRydW1wJ3MgbGV0dGVyIHRvIFhpLCBiZWxhdGVkIHdlbGwtd2lzaGVzXCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFs5XSBcIkF1c3RyYWxpYW4gbWFuIHRyYXBwZWQgaW4gZGFtIHdpdGggbm9zZSBqdXN0IGFib3ZlIHdhdGVyXCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMTBdIFwiTmV3IERlYWQgU2VhIFNjcm9sbHMgY2F2ZSBkaXNjb3ZlcmVkXCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcblsxMV0gXCJSb2NoZGFsZSBzZXggZ3Jvb21pbmcgZGVwb3J0YXRpb24gYXBwZWFsIGZhaWxzXCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuWzEyXSBcIlNjaG9vbCBidXMgY2FycnlpbmcgNDQgcHVwaWxzIG92ZXJ0dXJuc1wiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMTNdIFwiVGhlIEJvZHkgU2hvcDogV2hhdCB3ZW50IHdyb25nP1wiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcblsxNF0gXCJKZXJlbXkgQ29yYnluOiBDbGl2ZSBMZXdpcyBxdWl0dGluZyBub3QgYSBkaXNhc3RlclwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuWzE1XSBcIktldGNodXAgZGViYXRlOiBUbyBjaGlsbCBvciBub3QgdG8gY2hpbGwuLi5cIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG5bMTZdIFwiRnJhbmNlIG51Y2xlYXIgcG93ZXI6IEV4cGxvc2lvbiByb2NrcyBGbGFtYW52aWxsZSBwbGFudFwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcblsxN10gXCJUcnVtcCB1bmRlciBmaXJlIGluIE5vcmRzdHJvbSBJdmFua2Egcm93XCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuWzE4XSBcIlRyYW5zZ2VuZGVyIGdpcmwsIDExLCBzaG90IGluIHNjaG9vbCB3aXRoIEJCIGd1blwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4ifQ== -->
+<pre><code> [1] &quot;Jeremy Corbyn on Brexit: Labour will push for concessions&quot;                           
+ [2] &quot;French nuclear power plant explosion: No radioactive leak after blast in Flamanville&quot;
+ [3] &quot;School bus carrying 44 pupils overturns&quot;                                             
+ [4] &quot;Eddie Jones picks England team to face Wales in Six Nations&quot;                         
+ [5] &quot;A&amp;E waits for January 'worst ever', leaked data suggests&quot;                            
+ [6] &quot;Trump's First 100 Days: President sees bias from judges — and Nordstrom&quot;             
+ [7] &quot;Anger as ministers shut 'Dubs' scheme to rehouse child refugees&quot;                     
+ [8] &quot;China praises Trump's letter to Xi, belated well-wishes&quot;                             
+ [9] &quot;Australian man trapped in dam with nose just above water&quot;                            
+[10] &quot;New Dead Sea Scrolls cave discovered&quot;                                                
+[11] &quot;Rochdale sex grooming deportation appeal fails&quot;                                      
+[12] &quot;School bus carrying 44 pupils overturns&quot;                                             
+[13] &quot;The Body Shop: What went wrong?&quot;                                                     
+[14] &quot;Jeremy Corbyn: Clive Lewis quitting not a disaster&quot;                                  
+[15] &quot;Ketchup debate: To chill or not to chill...&quot;                                         
+[16] &quot;France nuclear power: Explosion rocks Flamanville plant&quot;                             
+[17] &quot;Trump under fire in Nordstrom Ivanka row&quot;                                            
+[18] &quot;Transgender girl, 11, shot in school with BB gun&quot;                                    </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -288,14 +286,14 @@ for (i in 1:length(lowerIdx)) {
 }
 paste(tmpsplit,collapse = &quot; &quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQXJ0aWNsZSA1MCBuZXVyb2JpbGw6IE1heSBzZWVzIG9mZiBuZXVyb2F0dGVtcHQgdG8gZ2l2ZSBNUHMgbmV1cm92ZXRvIG92ZXIgQnJleGl0IG5ldXJvZGVhbFwiXG4ifQ== -->
-<pre><code>[1] &quot;Article 50 neurobill: May sees off neuroattempt to give MPs neuroveto over Brexit neurodeal&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiSmVyZW15IENvcmJ5bjogQ2xpdmUgTGV3aXMgcXVpdHRpbmcgbm90IGEgbmV1cm9kaXNhc3RlclwiXG4ifQ== -->
+<pre><code>[1] &quot;Jeremy Corbyn: Clive Lewis quitting not a neurodisaster&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmNoYXIocGFzdGUodG1wc3BsaXQsY29sbGFwc2UgPSBcIiBcIikpXG5gYGAifQ== -->
 <pre class="r"><code>nchar(paste(tmpsplit,collapse = &quot; &quot;))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDkxXG4ifQ== -->
-<pre><code>[1] 91</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDU1XG4ifQ== -->
+<pre><code>[1] 55</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -332,8 +330,8 @@ tweet_text &lt;- paste(tmpsplit,collapse = &quot; &quot;)
 # send tweet
 tweet(tweet_text)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTmV1cm9wcmVmaXhlcjogQXJ0aWNsZSA1MCBuZXVyb2JpbGw6IE1heSBzZWVzIG9mZiBuZXVyb2F0dGVtcHQgdG8gZ2l2ZSBNUHMgbmV1cm92ZXRvIG92ZXIgQnJleGl0IG5ldXJvZGVhbFwiXG4ifQ== -->
-<pre><code>[1] &quot;Neuroprefixer: Article 50 neurobill: May sees off neuroattempt to give MPs neuroveto over Brexit neurodeal&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTmV1cm9wcmVmaXhlcjogSmVyZW15IENvcmJ5bjogQ2xpdmUgTGV3aXMgcXVpdHRpbmcgbm90IGEgbmV1cm9kaXNhc3RlclwiXG4ifQ== -->
+<pre><code>[1] &quot;Neuroprefixer: Jeremy Corbyn: Clive Lewis quitting not a neurodisaster&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3dpbGwgYWRkIGEgbG9nIG9mIHR3ZWV0cyBzb29uLCBldmVudHVhbGx5IHBsYW5uaW5nIHRvIGF1dG9tYXRlIHR3ZWV0aW5nLi4uXG5gYGAifQ== -->
 <pre class="r"><code>#will add a log of tweets soon, eventually planning to automate tweeting...</code></pre>
