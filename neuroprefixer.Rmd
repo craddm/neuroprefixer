@@ -57,7 +57,7 @@ googleHeadlines <-  gsub("( -).*","",googleRSS[3:length(googleRSS)])
 headlines <- c(googleHeadlines,bbcHeadlines)
 
 #Remove 
-headlines <- headlines[grep(paste(bannedWords,collapse="|"),headlines,invert = TRUE)]
+headlines <- headlines[grep(paste(bannedWords,collapse="|"),headlines,invert = TRUE,ignore.case = TRUE)]
 headlines
 ```
 

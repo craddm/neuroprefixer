@@ -78,3 +78,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 neuroprefixer.nb.html
+.Rproj.user
