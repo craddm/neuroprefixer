@@ -34,27 +34,27 @@ Next we do the actual scraping. Here I get the BBC's Most Read headlines and the
 
 ```{r setURLs}
 #URL for the Most Read section of BBC news
-bbcMostRead <- "http://www.bbc.com/news/popular/read"
+bbc_most_read <- "http://www.bbc.com/news/popular/read"
 
 #Scrape the headlines
-mostRead <- bbcMostRead %>% 
+bbc_headlines <- bbc_most_read %>% 
   read_html() %>% 
-  html_nodes(".most-popular-page-list-item span") %>% 
+  html_nodes(".most-popular-list-item__headline") %>% 
   html_text()
 
 #Extract the article titles (the even elements of the list)
-bbcHeadlines <-mostRead[seq(2,20,2)]
+#bbcHeadlines <-mostRead[seq(2,20,2)]
 
 #Scrape google's RSS feed for UK/world news
-googleRSS <- read_xml("https://news.google.com/news?pz=1&cf=all&ned=uk&hl=en&output=rss") %>%
+google_RSS <- read_xml("https://news.google.com/news?pz=1&cf=all&ned=uk&hl=en&output=rss") %>%
   html_nodes("title") %>%
   html_text()
 
 #Remove the names of the newspapers/websites the headlines are scraped from, and the two useless titles at the start of the list of headlines
-googleHeadlines <-  gsub("( -).*","",googleRSS[3:length(googleRSS)])
+google_headlines <-  gsub("( -).*","",google_RSS[3:length(google_RSS)])
 
 #Combine them into a single set of headlines
-headlines <- c(googleHeadlines,bbcHeadlines)
+headlines <- c(google_headlines,bbc_headlines)
 
 #Remove 
 headlines <- headlines[grep(paste(bannedWords,collapse="|"),headlines,invert = TRUE,ignore.case = TRUE)]
